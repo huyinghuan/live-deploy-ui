@@ -1,0 +1,48 @@
+.bg{
+  background-image: url("/assets/images/bg.png") !important;
+  background-repeat: repeat-x!important;
+}
+#container{
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  min-width: 320px;
+  background: #fff;
+  font-size: 14px;
+  display:flex;
+  flex-direction:row;
+}
+.toc{
+  position: relative;
+  flex: 0 0 auto;
+  width: 250px!important;
+  .ui.menu{
+    width: 250px!important;
+    border-radius: 0;
+    border-width: 0 1px 0 0;
+    box-shadow: none;
+    margin: 0;
+    height: 100%;
+    overflow-y: auto
+  }
+}
+.article{
+  flex: 1;
+  -webkit-flex:1;
+  -webkit-box-flex:1;
+  .ui.menu{
+    border-radius: 0;
+  }
+  display:flex;
+  flex-direction:column;
+  .pusher{
+    flex: 1;
+    padding-top: 10px;
+    padding-left: 30px;
+    overflow-y: auto;
+    .main{
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
