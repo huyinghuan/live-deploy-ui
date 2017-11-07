@@ -1,25 +1,27 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { API } from '../services/API';
-import { ActivatedRoute, ParamMap, Router} from '@angular/router';
-
+import { Component, Input, EventEmitter} from '@angular/core';
 let template:string = 
 `
-
-  <div class="ui form">
-    <div class="inline fields">
+  <td>{{server.server_ip}}</td>
+  <td>{{server.timeout}}</td>
+  <td>{{server.backup}}</td>
+  <td>{{server.down}}</td>
+  <td class="collapsing">
+    <div class="ui buttons">
+      <button class="mini ui red button"  (click)="onDeleteServer.emit(server.id)">删除</button>
+      <div class="or"></div>
+      <button class="mini ui blue button" (click)="onEditServer.emit(server)">编辑</button>
     </div>
-  </div>
+  </td>
 `
 
 @Component({
-  selector: 'server-config',
-  template: template
+  selector: '[server-config]',
+  template: template,
+  outputs:["onEditServer", "onDeleteServer"]
 })
-export class ServerConfigComponent implements OnInit  {
-  @Input() server:any;
-  constructor(private api:API,private route:ActivatedRoute, private navRouter: Router){}
-  ngOnInit() {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-  }
+export class ServerConfigComponent{
+  @Input() public server:any;
+  constructor(){}
+  public onEditServer = new EventEmitter()
+  public onDeleteServer = new EventEmitter()
 }

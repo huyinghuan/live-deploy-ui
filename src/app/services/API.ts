@@ -56,4 +56,7 @@ export class API {
   remove(url:string){
     return this.fetch(url, {}, "DELETE")
   }
+  all(method:string, url:string, data:any){
+    return this.fetch(url, data, method)
+  }
 }

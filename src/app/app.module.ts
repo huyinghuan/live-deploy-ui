@@ -7,7 +7,8 @@ import { FormsModule }   from '@angular/forms';
 import { AppComponent } from './components/app';
 import {LocationConfigComponent} from './components/location'
 import {ServerConfigComponent} from './components/server'
-
+import {LocationConfigEditComponent} from './components/location-edit'
+import {ServerConfigEditComponent} from './components/server-edit'
 
 import { IndexPage } from './page/index';
 import { LoginPage } from './page/login';
@@ -46,7 +47,9 @@ var router = RouterModule.forRoot([
     AppConfigAddPage,
     AppConfigEditPage,
     ServerConfigComponent,
-    LocationConfigComponent
+    ServerConfigEditComponent,
+    LocationConfigComponent,
+    LocationConfigEditComponent
   ],
   imports: [
     BrowserModule , HttpModule, FormsModule, router
