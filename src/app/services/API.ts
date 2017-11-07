@@ -53,4 +53,7 @@ export class API {
   update(url:string, data:any){
     return this.fetch(url, data, "PUT")
   }
+  remove(url:string){
+    return this.fetch(url, {}, "DELETE")
+  }
 }

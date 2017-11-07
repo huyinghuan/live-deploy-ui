@@ -26,7 +26,7 @@ let template:string =
 `
 
 @Component({
-  selector: 'server-config',
+  selector: 'app-config',
   template: template
 })
 export class AppConfigAddPage implements OnInit  {
