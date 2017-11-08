@@ -13,7 +13,7 @@ let template:string =
     <input type="number" placeholder="可选，默认0秒为nginx默认值" [(ngModel)]="location.timeout">
   </div>
   <div class="field">
-    <div class="ui right floated buttons" [style.display]="locationEditBtn ? 'inline-flex' : 'none'">
+    <div class="ui right floated buttons">
       <button class="ui green button" (click)="SaveLoction()">保存</button>
       <div class="or"></div>
       <button class="ui gray button" (click)="CancelEditLocation()">取消</button>
@@ -24,7 +24,7 @@ let template:string =
 `
 
 @Component({
-  selector: '[location-config]',
+  selector: '[location-edit]',
   template: template,
   outputs: ['onCancelEditLocation', 'onSaveLocation']
 })
