@@ -20,7 +20,11 @@ export class API {
         if(response.text()==""){
           return resolve("")
         }
-        resolve(response.json())
+        if(response.headers.get("content-type").indexOf('json')!=-1){
+          resolve(response.json())
+        }else{
+          resolve(response.text())
+        }
       }, (errorResponse:Response)=>{
         switch(errorResponse.status){
           case 401: 

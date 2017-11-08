@@ -26,10 +26,7 @@ var router = RouterModule.forRoot([
     component: IndexPage,
     children:[
       {
-        path:"", component: AppListPage
-      },
-      {
-        path:"app-config", component: AppConfigAddPage
+        path:"app-config", component: AppListPage
       },
       {
         path:"app-config/:appId", component: AppConfigEditPage

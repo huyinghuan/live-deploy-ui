@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ElementRef } from '@angular/core';
 import { API } from '../services/API';
 import { Observable} from 'rxjs/Observable';
 import {ISubscription} from 'rxjs/Subscription'
 import { ActivatedRoute, ParamMap, Router} from '@angular/router';
-
+declare var jQuery:any
 let template:string = 
 `
   <div class="main">
@@ -21,6 +21,8 @@ let template:string =
         </div>
         <div class="field">
           <button class="ui blue button" (click)="saveApp()">保存</button>
+          <button class="ui green button" (click)="preview()">预览</button>
+          <button class="ui yellow button" (click)="apply()">应用</button>
         </div>
       </div>
     </div>
@@ -46,7 +48,15 @@ let template:string =
       <location-config *ngFor="let location of locationList" [location]="location" (onLoctionDelete)="refreshLocationList($event)"></location-config>
       </div>
     </div>
-
+    <div class="ui modal" id="nginx-config-preview">
+      <div class="header">Nginx Config</div>
+      <div class="content">
+        <pre></pre>
+      </div>
+      <div class="actions">
+        <button class="ui black deny button">确定</button>
+      </div>
+    </div>
 `
 
 @Component({
@@ -64,7 +74,7 @@ export class AppConfigEditPage implements OnInit  {
   newLoction:any={}
   private subscriptQueryParams:ISubscription
   private subscriptParams:ISubscription
-  constructor(private api:API,private route:ActivatedRoute, private navRouter: Router){}
+  constructor(private api:API,private route:ActivatedRoute, private navRouter: Router, private ele:ElementRef){}
   ngOnInit() {
     this.subscriptQueryParams = this.route.queryParams.subscribe((params)=>{
         Object.assign(this.params, params)
@@ -79,6 +89,7 @@ export class AppConfigEditPage implements OnInit  {
     this.subscriptQueryParams.unsubscribe()
     this.subscriptParams.unsubscribe()
   }
+  ngAfterViewInit(){}
   saveApp(){
     this.api.update(`/api/nginx/${this.params.appId}`, this.app).then((app)=>{this.app = app})
   }
@@ -91,5 +102,14 @@ export class AppConfigEditPage implements OnInit  {
   refreshLocationList(e){
     console.log(e)
     this.api.get(`/api/nginx/${this.params.appId}/location`, {}).then((list)=>{this.locationList = list})
+  }
+  preview(){
+    this.api.get(`/api/nginx/${this.params.appId}/preview`, {}).then((data)=>{
+      jQuery("#nginx-config-preview").find("pre").text(data)
+      jQuery("#nginx-config-preview").modal('show')
+    })
+  }
+  apply(){
+
   }
 }
