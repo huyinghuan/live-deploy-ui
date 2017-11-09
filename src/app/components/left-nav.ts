@@ -5,7 +5,11 @@ let template:string = `
     <img src="/images/logo.png">
   </a>
   <a class="item" [routerLink]="['/index/app-config']"  routerLinkActive="active">服务列表</a>
-  <a class="item">系统设置</a>
+  <a class="item">
+    <div class="header">系统设置</div>
+    <div class="menu">
+    </div>
+  </a>
 </div>
 `
 

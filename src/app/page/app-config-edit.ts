@@ -112,6 +112,8 @@ export class AppConfigEditPage implements OnInit  {
     })
   }
   apply(){
-
+    this.api.get(`/api/nginx/${this.params.appId}/deploy`, {}).then((msg)=>{
+      alert(msg)
+    })
   }
 }
