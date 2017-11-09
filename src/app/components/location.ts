@@ -11,12 +11,10 @@ let template:string =
         <th colspan="5" (mouseenter)="locationEditBtn=true" (mouseleave)="locationEditBtn=false" *ngIf="!locationEditing">
           <a class="ui tag label" title="路径">{{location.path}}</a>
           <a class="ui teal tag label" title="超时">timeout: {{location.timeout}}s</a>
-          <div class="ui right floated buttons" [style.display]="locationEditBtn ? 'inline-flex' : 'none'">
-            <button class="mini ui red button"  (click)="delLocation(location.id)">删除</button>
-            <div class="or"></div>
-            <button class="mini ui blue button"  (click)="locationEditing=true">编辑</button>
-            <div class="or"></div>
-            <button class="mini ui green button"  (click)="doAddServer()">添加服务器</button>
+          <div class="ui right floated buttons" [style.display]="locationEditBtn ? 'inline-flex' : 'none'">            
+            <button class="ui icon red button" (click)="delLocation(location.id)" title="删除"><i class="trash icon"></i></button>
+            <button class="ui icon blue button" (click)="locationEditing=true" title=“编辑”><i class="edit icon"></i></button>
+            <button class="mini ui green button"  (click)="doAddServer()" title="添加服务器"><i class="desktop icon"></i></button>
           </div>
         </th>
       </tr>

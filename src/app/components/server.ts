@@ -4,12 +4,12 @@ let template:string =
   <td>{{server.server_ip}}</td>
   <td>{{server.timeout}}</td>
   <td>{{server.backup}}</td>
-  <td>{{server.down}}</td>
+  <td *ngIf="server.down">Stop</td>
+  <td *ngIf="!server.down">Running</td>
   <td class="collapsing">
     <div class="ui buttons">
-      <button class="mini ui red button"  (click)="onDeleteServer.emit(server.id)">删除</button>
-      <div class="or"></div>
-      <button class="mini ui blue button" (click)="onEditServer.emit(server)">编辑</button>
+      <button class="ui icon red button"  (click)="onDeleteServer.emit(server.id)" title="删除"><i class="trash icon"></i></button>
+      <button class="ui icon blue button" (click)="onEditServer.emit(server)" title=“编辑”><i class="edit icon"></i></button>
     </div>
   </td>
 `

@@ -33,6 +33,9 @@ export class API {
           case 403:
             console.log("用户名或密码错误");
             break;
+          case 404:
+            this.router.navigateByUrl("/404");
+            break;
           case 504:
             console.log("服务器超时")
             break;

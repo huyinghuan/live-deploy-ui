@@ -20,9 +20,11 @@ let template:string =
           <input type="text" placeholder="别称(可选，数字字母组合)"  [(ngModel)]="app.name">
         </div>
         <div class="field">
-          <button class="ui blue button" (click)="saveApp()">保存</button>
-          <button class="ui green button" (click)="preview()">预览</button>
-          <button class="ui yellow button" (click)="apply()">应用</button>
+          <div class="ui buttons">
+            <button class="ui icon blue button" (click)="saveApp()"><i class="save icon"></i>保存</button>
+            <button class="ui icon green button" (click)="preview()"><i class="unhide icon"></i>预览</button>
+            <button class="ui icon yellow button" (click)="apply()"><i class="rocket icon"></i>应用</button>
+          </div>
         </div>
       </div>
     </div>

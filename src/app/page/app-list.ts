@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { API } from '../services/API';
 import { ActivatedRoute, ParamMap, Router} from '@angular/router';
-
+declare var jQuery:any
 let template:string = 
 `
 <div class="main">
@@ -36,12 +36,13 @@ let template:string =
       <td>{{server.name}}</td>
       <td>{{server.domain}}</td>
       <td>{{server.port}}</td>
-      <td>
-        <div class="ui buttons">
-          <a class="ui green button">编辑</a>
-          <div class="or"></div>
-          <button class="ui red button" (click)="del(server.id)">删除</button>
-        </div>
+      <td class="collapsing">
+      <div class="ui buttons">
+        <a class="ui green icon button" title="编辑" [routerLink]="[server.id]"><i class="edit icon"></i></a>
+        <button class="ui red icon button" (click)="del(server.id)" title="删除"><i class="trash icon"></i></button>
+        <button *ngIf="!server.down" class="ui yellow icon button" (click)="down(server.id)" title="下线" ><i class="arrow circle down icon"></i></button>
+        <button *ngIf="server.down" class="ui blue icon button" (click)="up(server.id)" title="上线" ><i class="arrow circle up icon"></i></button>
+      </div>
       </td>
     </tr>
   </tbody>
@@ -60,13 +61,20 @@ export class AppListPage implements OnInit  {
     port: 80,
     name:""
   }
-  constructor(private api:API,private route:ActivatedRoute, private navRouter: Router){}
-  ngOnInit() {
+  loadList(){
     this.api.get(`/api/nginx`, {}).then((list)=>{this.serverList = list})
   }
-  ngOnDestroy() {
+  constructor(private api:API,private route:ActivatedRoute, private navRouter: Router, private ele:ElementRef){}
+  ngOnInit() {
+   this.loadList()
   }
-  del(id){}
+  ngAfterContentChecked(){}
+  ngOnDestroy() {}
+  del(id){
+    this.api.remove(`/api/nginx/${id}`).then(()=>{
+      this.loadList()
+    })
+  }
   add(){
     if(this.app.port == 0){
       return 
@@ -74,6 +82,16 @@ export class AppListPage implements OnInit  {
     this.api.post("/api/nginx", this.app).then((data)=>{
      // this.navRouter.navigate(["api", "category", "start", this.params.start, 'end',this.params.end])
       this.navRouter.navigate(["index","app-config", data["id"]])
+    })
+  }
+  down(id){
+    this.api.put(`/api/nginx/${id}/status`, {down: true}).then(()=>{
+      this.loadList()
+    })
+  }
+  up(id){
+    this.api.put(`/api/nginx/${id}/status`, {down: false}).then(()=>{
+      this.loadList()
     })
   }
 }
