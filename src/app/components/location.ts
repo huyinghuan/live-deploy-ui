@@ -26,10 +26,10 @@ let template:string =
       </tr>
     </thead>
     <thead>
-      <tr><th>Server IP</th><th>超时</th><th>备用</th><th>状态</th><th>操作</th></tr>
+      <tr><th>Server IP</th><th class="collapsing">超时</th><th>备用</th><th>状态</th><th>操作</th></tr>
     </thead>
     <tbody>
-      <tr server-config *ngFor="let server of serverList" [server]="server" (onEditServer)="doEditServer($event)" (onDeleteServer)="delServer($event)"></tr>
+      <tr server-config *ngFor="let server of serverList" [server]="server" (onEditServer)="doEditServer($event)" (onDeleteServer)="delServer($event)" (onUpdateServerStatus)="updateServerStatus($event)"></tr>
     </tbody>
   </table>
   <div class="ui divider"></div>
@@ -102,6 +102,11 @@ export class LocationConfigComponent implements OnInit  {
   }
   delServer(id){
     this.api.remove(`/api/nginx/${this.appid}/location/${this.location.id}/server/${id}`).then(()=>{
+      this.loadList()
+    })
+  }
+  updateServerStatus(data:any){
+    this.api.update(`/api/nginx/${this.appid}/location/${this.location.id}/server/${data["id"]}`, data).then(()=>{
       this.loadList()
     })
   }
