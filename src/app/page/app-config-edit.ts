@@ -26,6 +26,9 @@ let template:string =
             <button class="ui icon yellow button" (click)="apply()"><i class="rocket icon"></i>应用</button>
           </div>
         </div>
+        <div class="field">
+          <button class="ui icon green button" (click)="previewRunnig()"><i class="unhide icon"></i>当前运行配置</button>
+        </div>
       </div>
     </div>
     <div class="ui divider"></div>
@@ -107,6 +110,12 @@ export class AppConfigEditPage implements OnInit  {
   }
   preview(){
     this.api.get(`/api/nginx/${this.params.appId}/preview`, {}).then((data)=>{
+      jQuery("#nginx-config-preview").find("pre").text(data)
+      jQuery("#nginx-config-preview").modal('show')
+    })
+  }
+  previewRunnig(){
+    this.api.get(`/api/nginx/${this.params.appId}/running`, {}).then((data)=>{
       jQuery("#nginx-config-preview").find("pre").text(data)
       jQuery("#nginx-config-preview").modal('show')
     })
