@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptionsArgs, Response  } from '@angular/http';
 import {Router} from "@angular/router";
 import 'rxjs/add/operator/toPromise';
+import  * as alertjs from 'alertify.js'
+
 @Injectable()
 export class API {
   constructor(private http:Http, private router:Router){}
@@ -17,8 +19,8 @@ export class API {
 
     return new Promise((resolve, reject)=>{
       this.http.request(url,options).subscribe((response:Response)=>{
-        if(response.text()==""){
-          return resolve("")
+        if(method!="GET"){
+          alertjs.success("操作成功！")
         }
         if(response.headers.get("content-type").indexOf('json')!=-1){
           resolve(response.json())
@@ -31,19 +33,19 @@ export class API {
             this.router.navigateByUrl("/login");
             break;
           case 403:
-            console.log("用户名或密码错误");
+            alertjs.error("用户名或密码错误");
             break;
           case 404:
             this.router.navigateByUrl("/404");
             break;
           case 504:
-            console.log("服务器超时")
+            alertjs.error("服务器超时")
             break;
           case 500:
-            console.log(errorResponse.text())
+            alertjs.closeLogOnClick(false).error(errorResponse.text())
             break;
           default:
-            console.log("http status:", errorResponse.status, errorResponse.text())
+            alertjs.error("http status:", errorResponse.status, errorResponse.text())
         }
       })
     })

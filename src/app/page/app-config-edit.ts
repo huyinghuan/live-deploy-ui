@@ -3,6 +3,7 @@ import { API } from '../services/API';
 import { Observable} from 'rxjs/Observable';
 import {ISubscription} from 'rxjs/Subscription'
 import { ActivatedRoute, ParamMap, Router} from '@angular/router';
+import  * as alertjs from 'alertify.js'
 declare var jQuery:any
 let template:string = 
 `
@@ -105,7 +106,6 @@ export class AppConfigEditPage implements OnInit  {
     })
   }
   refreshLocationList(e){
-    console.log(e)
     this.api.get(`/api/nginx/${this.params.appId}/location`, {}).then((list)=>{this.locationList = list})
   }
   preview(){
@@ -121,8 +121,16 @@ export class AppConfigEditPage implements OnInit  {
     })
   }
   apply(){
-    this.api.get(`/api/nginx/${this.params.appId}/deploy`, {}).then((msg)=>{
-      alert(msg)
-    })
+    if(this.app.down){
+      alertjs.confirm("当前服务处于下线状态，是否上线并部署", ()=> {
+        this.api.get(`/api/nginx/${this.params.appId}/deploy`, {}).then((msg)=>{
+          alertjs.success(msg)
+        })
+      });
+    }else{
+      this.api.get(`/api/nginx/${this.params.appId}/deploy`, {}).then((msg)=>{
+        alertjs.success(msg)
+      })
+    }
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { API } from '../services/API';
 import { ActivatedRoute, ParamMap, Router} from '@angular/router';
+import * as alertjs from 'alertify.js';
 declare var jQuery:any
 let template:string = 
 `
@@ -71,8 +72,11 @@ export class AppListPage implements OnInit  {
   ngAfterContentChecked(){}
   ngOnDestroy() {}
   del(id){
-    this.api.remove(`/api/nginx/${id}`).then(()=>{
-      this.loadList()
+    alertjs.confirm("删除应用将导致服务不可能用，是否确认删除？", ()=>{
+      this.api.remove(`/api/nginx/${id}`).then((msg)=>{
+        alertjs.success(msg)
+        this.loadList()
+      })
     })
   }
   add(){
@@ -85,8 +89,10 @@ export class AppListPage implements OnInit  {
     })
   }
   down(id){
-    this.api.put(`/api/nginx/${id}/status`, {down: true}).then(()=>{
-      this.loadList()
+    alertjs.confirm("下线将导致服务不可能用，是否确认下线？", ()=>{
+      this.api.put(`/api/nginx/${id}/status`, {down: true}).then(()=>{
+        this.loadList()
+      })
     })
   }
   up(id){

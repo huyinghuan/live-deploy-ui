@@ -41,7 +41,7 @@ export class LoginPage {
   }
   constructor(private api:API){}
   login(user){
-    this.api.post("/api/login", user).then((data)=>{
+    this.api.post("/api/session", user).then((data)=>{
       console.log(data,9999)
     })
   }

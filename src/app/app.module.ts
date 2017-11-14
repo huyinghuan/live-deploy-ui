@@ -20,6 +20,16 @@ import {AppConfigEditPage} from './page/app-config-edit';
 import { API } from './services/API';
 import { Page404 } from './page/page-404';
 
+import  * as alertjs from 'alertify.js'
+alertjs.logPosition("bottom right").maxLogItems(5).delay(10000).okBtn("确认").cancelBtn("取消").setLogTemplate(function(input){
+  let q = [];
+  (input as string).split('\n').forEach((item)=>{
+    q.push(`<p>${item}</p>`)
+  })
+  return q.join('')
+});
+
+
 var router = RouterModule.forRoot([
   {path: "", redirectTo:"/index/app-config", pathMatch:"full"},
   {path: 'login',component: LoginPage},
