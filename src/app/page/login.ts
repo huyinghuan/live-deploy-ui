@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { API } from '../services/API';
-
+import * as alertjs from 'alertify.js';
+import {Router} from "@angular/router";
 let template:string = 
 `
 <div class="ui middle aligned center aligned grid" style="height: 100%">
@@ -14,7 +15,7 @@ let template:string =
       <div class="field">
         <div class="ui left icon input">
           <i class="user icon"></i>
-          <input type="text" placeholder="用户名" [(ngModel)]="user.name" name="user" >
+          <input type="text" placeholder="用户名" [(ngModel)]="user.username" name="user" >
         </div>
       </div>
       <div class="field">
@@ -36,13 +37,23 @@ let template:string =
 })
 export class LoginPage {
   user = {
-    name:"",
+    username:"",
     password:""
   }
-  constructor(private api:API){}
+  constructor(private api:API, private router:Router){}
   login(user){
+    let trimUsername:string = (user && user.username) ? user.username.replace(/\s/g, "") : ""
+    let trimPassword:string= (user && user.password) ? user.password.replace(/\s/g, ""):""
+    if (trimUsername.length == 0 || (trimUsername.length !=  user.username.length)){
+      alertjs.error("用户名不能为空或者包含空格")
+      return 
+    }
+    if (trimPassword.length == 0 || (trimPassword.length !=  user.password.length)){
+      alertjs.error("密码不能为空或者包含空格")
+      return 
+    }
     this.api.post("/api/session", user).then((data)=>{
-      console.log(data,9999)
+      this.router.navigateByUrl("/index/app-config");
     })
   }
   ngOnInit() {

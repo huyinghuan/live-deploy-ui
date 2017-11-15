@@ -28,24 +28,28 @@ export class API {
           resolve(response.text())
         }
       }, (errorResponse:Response)=>{
+        let msg = errorResponse.text()
         switch(errorResponse.status){
           case 401: 
             this.router.navigateByUrl("/login");
             break;
           case 403:
-            alertjs.error("用户名或密码错误");
+            alertjs.error(msg);
             break;
           case 404:
             this.router.navigateByUrl("/404");
             break;
+          case 406:
+            alertjs.error(msg)
+            break
           case 504:
             alertjs.error("服务器超时")
             break;
           case 500:
-            alertjs.closeLogOnClick(false).error(errorResponse.text())
+            alertjs.closeLogOnClick(false).error(msg)
             break;
           default:
-            alertjs.error("http status:", errorResponse.status, errorResponse.text())
+            alertjs.error("http status:", errorResponse.status +" " + errorResponse.text())
         }
       })
     })
