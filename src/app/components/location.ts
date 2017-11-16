@@ -22,7 +22,7 @@ let template:string =
         <th colspan="5" location-edit  *ngIf="locationEditing"  (onCancelEditLocation)="locationEditing=false" (onSaveLocation)="SaveLoction($event)" [location]="location"></th>
       </tr>
       <tr [style.display]="serverAdding ? 'table-row' : 'none'">
-        <th colspan="5" server-edit (onCancelAddServer)="serverAdding=false" (onSaveServer)="SaveServer($event)" [server]="server"></th>
+        <th colspan="5" server-edit (onCancelAddServer)="serverAdding=false" (onSaveServer)="SaveServer()" [server]="server"></th>
       </tr>
     </thead>
     <thead>

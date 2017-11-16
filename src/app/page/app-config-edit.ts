@@ -70,7 +70,7 @@ let template:string =
   template: template
 })
 export class AppConfigEditPage implements OnInit  {
-  private app:any ={
+  app:any ={
     domain: "",
     port: 80,
     name:""

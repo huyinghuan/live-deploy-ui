@@ -43,7 +43,7 @@ let template:string =
 export class ServerConfigEditComponent{
   public onCancelAddServer = new EventEmitter()
   public onSaveServer = new EventEmitter()
-  @Input() public server = {}
+  @Input() public server:any = {}
   constructor(){}
   SaveServer(){
     this.onSaveServer.emit(this.server)

@@ -57,7 +57,7 @@ let template:string =
 })
 export class AppListPage implements OnInit  {
   serverList:any = []
-  private app:any ={
+  app:any ={
     domain: "",
     port: 80,
     name:""

@@ -1,6 +1,6 @@
 module.exports = {
   "/api": {
-    "target": "http://localhost:8080/",
+    "target": "http://10.200.8.234:18080/",
     "changeOrigin": true,
     "logLevel": "debug"
   }
