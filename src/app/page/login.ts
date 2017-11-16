@@ -8,7 +8,7 @@ let template:string =
 <div class="column" style="max-width: 450px;">
   <h2 class="ui teal image header">
     <!-- <img src="/img/logo.png" class="logo"> -->
-    <div class="content">Admin</div>
+    <div class="content">Nginx Panel</div>
   </h2>
   <form class="ui large form">
     <div class="ui stacked segment">
@@ -21,7 +21,7 @@ let template:string =
       <div class="field">
         <div class="ui left icon input">
           <i class="lock icon"></i>
-          <input type="password" placeholder="密码" [(ngModel)]="user.password" name="password">
+          <input type="password" placeholder="密码" [(ngModel)]="user.password" name="password" (keyup)="keyup($event)">
         </div>
       </div>
       <div class="ui fluid large teal submit button" (click)="login(user)">Login</div>
@@ -41,6 +41,13 @@ export class LoginPage {
     password:""
   }
   constructor(private api:API, private router:Router){}
+  keyup(e){
+    if(e.keyCode == 13){
+      e.stopPropagation()
+      this.login(this.user)
+      return
+    }
+  }
   login(user){
     let trimUsername:string = (user && user.username) ? user.username.replace(/\s/g, "") : ""
     let trimPassword:string= (user && user.password) ? user.password.replace(/\s/g, ""):""
