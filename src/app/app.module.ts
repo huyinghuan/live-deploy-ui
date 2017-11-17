@@ -21,6 +21,7 @@ import { API } from './services/API';
 import { Page404 } from './page/page-404';
 
 import  * as alertjs from 'alertify.js'
+import { TopNavComponent } from './components/top-nav';
 alertjs.logPosition("bottom right").maxLogItems(5).delay(10000).okBtn("确认").cancelBtn("取消").setLogTemplate(function(input){
   let q = [];
   (input as string).split('\n').forEach((item)=>{
@@ -52,6 +53,7 @@ var router = RouterModule.forRoot([
   declarations: [
     AppComponent,
     LeftNavComponent,
+    TopNavComponent,
     LoginPage,
     Page404,
     IndexPage,

@@ -5,11 +5,8 @@ let template:string =
 <div id="container" class="pushable content">
   <div class="toc" left-nav></div>
   <div class="article">
-    <div class="ui menu">
-      <div class="right menu">
-        <a class="item">Sign Up</a>
-        <a class="item">Help</a>
-      </div>
+    <div class="ui menu" top-nav>
+      
     </div>
     <div class="pusher">
     <router-outlet></router-outlet>
