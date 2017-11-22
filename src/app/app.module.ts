@@ -22,6 +22,8 @@ import { Page404 } from './page/page-404';
 
 import  * as alertjs from 'alertify.js'
 import { TopNavComponent } from './components/top-nav';
+import { MachineListPage } from './page/machine';
+import { MachinePanelPage } from './page/machine-panel';
 alertjs.logPosition("bottom right").maxLogItems(5).delay(10000).okBtn("确认").cancelBtn("取消").setLogTemplate(function(input){
   let q = [];
   (input as string).split('\n').forEach((item)=>{
@@ -32,11 +34,17 @@ alertjs.logPosition("bottom right").maxLogItems(5).delay(10000).okBtn("确认").
 
 
 var router = RouterModule.forRoot([
-  {path: "", redirectTo:"/index/app-config", pathMatch:"full"},
+  {path: "", redirectTo:"/index/machine", pathMatch:"full"},
   {path: 'login',component: LoginPage},
   { path: "index",
     component: IndexPage,
     children:[
+      {
+        path: "machine", component: MachineListPage
+      },
+      {
+        path: "machine/:machine", component: MachinePanelPage
+      },
       {
         path:"app-config", component: AppListPage
       },
@@ -57,6 +65,8 @@ var router = RouterModule.forRoot([
     LoginPage,
     Page404,
     IndexPage,
+    MachineListPage,
+    MachinePanelPage,
     AppListPage,
     AppConfigAddPage,
     AppConfigEditPage,

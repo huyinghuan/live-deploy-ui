@@ -44,7 +44,7 @@ export class AppConfigAddPage implements OnInit  {
     if(this.app.port == 0){
       return 
     }
-    this.api.post("/api/nginx", this.app).then((data)=>{
+    this.api.post("nginx", {},this.app).then((data)=>{
      // this.navRouter.navigate(["api", "category", "start", this.params.start, 'end',this.params.end])
       this.navRouter.navigate(["index","app-config", data["id"]])
     })

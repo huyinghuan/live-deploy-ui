@@ -17,11 +17,11 @@ export class TopNavComponent implements OnInit{
   username = "未登录"
   constructor(private api:API){}
   ngOnInit(){
-    this.api.get("/api/session", {}).then((data)=>{
+    this.api.get("session").then((data)=>{
       this.username = (data as any).name
     })
   }
   logout(){
-    this.api.remove("/api/session")
+    this.api.remove("session")
   }
 }

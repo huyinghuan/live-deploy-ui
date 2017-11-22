@@ -59,7 +59,7 @@ export class LoginPage {
       alertjs.error("密码不能为空或者包含空格")
       return 
     }
-    this.api.post("/api/session", user).then((data)=>{
+    this.api.post("session", user).then((data)=>{
       this.router.navigateByUrl("/index/app-config");
     })
   }

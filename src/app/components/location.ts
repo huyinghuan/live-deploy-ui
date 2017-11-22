@@ -48,46 +48,38 @@ export class LocationConfigComponent implements OnInit  {
   locationEditing = false
   serverAdding = false
   serverList:any=[]
-  private appid:number
-  private sub:any
   server:any = {}
   name = "11"
   constructor(private api:API,private route:ActivatedRoute, private navRouter: Router){}
   loadList(){
-    this.api.get(`/api/nginx/${this.appid}/location/${this.location.id}/server`,{}).then((data)=>{
+    this.api.get("nginx.location.server",{location:this.location.id}).then((data)=>{
       this.serverList = data
     })
   }
   ngOnInit() {
-    setTimeout(()=>{
-      this.name= "2222"
-    }, 3000)
-    this.sub = this.route.params.subscribe((params)=>{this.appid = +params["appId"]})
     this.loadList()
   }
-  ngOnDestroy() {
-    this.sub.unsubscribe()
-  }
   delLocation(id){
-    this.api.remove(`/api/nginx/${this.appid}/location/${this.location.id}`).then(()=>{
+    this.api.remove("nginx.location",{location:this.location.id}).then(()=>{
      //通知父级刷新列表
      this.onLoctionDelete.emit({id:1})
     })
   }
   SaveLoction(location){
-    this.api.put(`/api/nginx/${this.appid}/location/${this.location.id}`, location).then((data)=>{
+    this.api.put("nginx.location", {location:this.location.id}, location).then((data)=>{
       this.location = data
       this.locationEditing = false
     })
   }
   SaveServer(){
-    let url  = `/api/nginx/${this.appid}/location/${this.location.id}/server`
+    let url  = `nginx.location.server`
     let method = "POST"
+    let urlParams = {location:this.location.id}
     if(this.server.id){
-      url = `${url}/${this.server.id}`
+      urlParams["server"] = this.server.id
       method ="PUT"
     }
-    this.api.all(method,url, this.server).then((data)=>{
+    this.api.all(method, url, urlParams, this.server).then((data)=>{
       this.serverAdding = false
       this.loadList()
     })
@@ -101,12 +93,14 @@ export class LocationConfigComponent implements OnInit  {
     this.serverAdding=true
   }
   delServer(id){
-    this.api.remove(`/api/nginx/${this.appid}/location/${this.location.id}/server/${id}`).then(()=>{
+    let urlParams = {location:this.location.id, server:id}
+    this.api.remove(`nginx.location.server`, urlParams).then(()=>{
       this.loadList()
     })
   }
   updateServerStatus(data:any){
-    this.api.update(`/api/nginx/${this.appid}/location/${this.location.id}/server/${data["id"]}`, data).then(()=>{
+    let urlParams = {location:this.location.id, server:data["id"]}
+    this.api.update("nginx.location.server", urlParams,data).then(()=>{
       this.loadList()
     })
   }

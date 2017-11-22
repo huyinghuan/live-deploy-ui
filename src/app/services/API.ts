@@ -1,13 +1,35 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptionsArgs, Response  } from '@angular/http';
-import {Router} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 import 'rxjs/add/operator/toPromise';
 import  * as alertjs from 'alertify.js'
 
+
+
+
 @Injectable()
 export class API {
-  constructor(private http:Http, private router:Router){}
-  fetch(url, data, method="GET"){
+  private urlParams:any = {}
+  constructor(private http:Http, private router:Router, private activeRoute:ActivatedRoute){
+    this.activeRoute.queryParams.subscribe((params)=>{
+      this.urlParams = params
+    })
+  }
+  tranformRoute(urlstr:string, defParams?:any){
+    let params = Object.assign({}, defParams, this.urlParams)
+    let urlArr = urlstr.split(".")
+    let resultRouteArr = ["/api"]
+    for(let i = 0; i < urlArr.length; i++){
+      resultRouteArr.push(urlArr[i])
+      let urlParamValue = params[urlArr[i]]
+      if(urlParamValue){
+        resultRouteArr.push(urlParamValue)
+      }
+    }
+    return resultRouteArr.join("/")
+  }
+  fetch(url, defparams, data, method="GET"){
+    url = this.tranformRoute(url, defparams)
     let options:RequestOptionsArgs=  {
       method:method
     }
@@ -54,22 +76,22 @@ export class API {
       })
     })
   }
-  get(url:string, data:any){
-    return this.fetch(url, data)
+  get(url:string, defParams:any={}, data:any={}){
+    return this.fetch(url, defParams,  data)
   }
-  post(url:string, data:any){
-    return this.fetch(url, data, "POST")
+  post(url:string, defParams:any={}, data:any={}){
+    return this.fetch(url, defParams, data, "POST")
   }
-  put(url:string, data:any){
-    return this.fetch(url, data, "PUT")
+  put(url:string, defParams:any={}, data:any={}){
+    return this.fetch(url,  defParams,data, "PUT")
   }
-  update(url:string, data:any){
-    return this.fetch(url, data, "PUT")
+  update(url:string,defParams:any={}, data:any={}){
+    return this.fetch(url,  defParams,data, "PUT")
   }
-  remove(url:string){
-    return this.fetch(url, {}, "DELETE")
+  remove(url:string,defParams:any={}){
+    return this.fetch(url,  defParams, {}, "DELETE")
   }
-  all(method:string, url:string, data:any){
-    return this.fetch(url, data, method)
+  all(method:string, url:string,defParams:any={}, data:any={}){
+    return this.fetch(url,  defParams, data, method)
   }
 }

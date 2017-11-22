@@ -4,7 +4,7 @@ let template:string = `
   <a class="ui logo icon image" href="/">
     <img src="/images/logo.png">
   </a>
-  <a class="item" [routerLink]="['/index/app-config']"  routerLinkActive="active">服务列表</a>
+  <a class="item" [routerLink]="['/index/machine']"  routerLinkActive="active">服务器列表</a>
   <a class="item">
     <div class="header">系统设置</div>
     <div class="menu">

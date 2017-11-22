@@ -63,7 +63,7 @@ export class AppListPage implements OnInit  {
     name:""
   }
   loadList(){
-    this.api.get(`/api/nginx`, {}).then((list)=>{this.serverList = list})
+    this.api.get("nginx", {}).then((list)=>{this.serverList = list})
   }
   constructor(private api:API,private route:ActivatedRoute, private navRouter: Router, private ele:ElementRef){}
   ngOnInit() {
@@ -73,7 +73,7 @@ export class AppListPage implements OnInit  {
   ngOnDestroy() {}
   del(id){
     alertjs.confirm("删除应用将导致服务不可能用，是否确认删除？", ()=>{
-      this.api.remove(`/api/nginx/${id}`).then((msg)=>{
+      this.api.remove("nginx", {nginx:id}).then((msg)=>{
         alertjs.success(msg)
         this.loadList()
       })
@@ -83,20 +83,20 @@ export class AppListPage implements OnInit  {
     if(this.app.port == 0){
       return 
     }
-    this.api.post("/api/nginx", this.app).then((data)=>{
+    this.api.post("nginx", this.app).then((data)=>{
      // this.navRouter.navigate(["api", "category", "start", this.params.start, 'end',this.params.end])
       this.navRouter.navigate(["index","app-config", data["id"]])
     })
   }
   down(id){
     alertjs.confirm("下线将导致服务不可能用，是否确认下线？", ()=>{
-      this.api.put(`/api/nginx/${id}/status`, {down: true}).then(()=>{
+      this.api.put(`nginx.status`, {nginx:id},{down: true}).then(()=>{
         this.loadList()
       })
     })
   }
   up(id){
-    this.api.put(`/api/nginx/${id}/status`, {down: false}).then(()=>{
+    this.api.put("nginx.status",{nginx:id}, {down: false}).then(()=>{
       this.loadList()
     })
   }
