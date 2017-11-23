@@ -69,7 +69,7 @@ export class MachineListPage implements OnInit  {
   add(){
     this.api.post("machine", {}, this.machine).then((data)=>{
      // this.navRouter.navigate(["api", "category", "start", this.params.start, 'end',this.params.end])
-      this.navRouter.navigate(["index","machine", data["id"]])
+      this.navRouter.navigate(["index","machine", data["md5id"]])
     })
   }
 }

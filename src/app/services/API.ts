@@ -10,13 +10,9 @@ import  * as alertjs from 'alertify.js'
 @Injectable()
 export class API {
   private urlParams:any = {}
-  constructor(private http:Http, private router:Router, private activeRoute:ActivatedRoute){
-    this.activeRoute.queryParams.subscribe((params)=>{
-      this.urlParams = params
-    })
-  }
-  tranformRoute(urlstr:string, defParams?:any){
-    let params = Object.assign({}, defParams, this.urlParams)
+  constructor(private http:Http, private router:Router, private activeRoute:ActivatedRoute){}
+  tranformRoute(urlstr:string, params?:any){
+    params = params || {}
     let urlArr = urlstr.split(".")
     let resultRouteArr = ["/api"]
     for(let i = 0; i < urlArr.length; i++){
