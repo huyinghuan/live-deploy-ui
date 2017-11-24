@@ -21,6 +21,9 @@ let template:string =
     </div>
   </div>
   <div class="ui divider"></div>
+  <div class="ui massive labels">
+    <a class="ui green label" [routerLink]="['nginx']" ><i class="sitemap icon"></i>Nginx</a>
+  </div>
 </div>
 `
 

@@ -66,10 +66,10 @@ let template:string =
 `
 
 @Component({
-  selector: 'app-config-edit',
+  selector: 'nginx-config-edit',
   template: template
 })
-export class AppConfigEditPage implements OnInit  {
+export class NginxConfigEditPage implements OnInit  {
   app:any ={
     domain: "",
     port: 80,
@@ -78,44 +78,39 @@ export class AppConfigEditPage implements OnInit  {
   private params:any = {}
   locationList:any = []
   newLoction:any={}
-  private subscriptQueryParams:ISubscription
   private subscriptParams:ISubscription
   constructor(private api:API,private route:ActivatedRoute, private navRouter: Router, private ele:ElementRef){}
   ngOnInit() {
-    this.subscriptQueryParams = this.route.queryParams.subscribe((params)=>{
-        Object.assign(this.params, params)
-    })
     this.subscriptParams = this.route.params.subscribe((params)=>{
-        Object.assign(this.params, params)
+      this.params = params
     })
-    this.api.get(`/api/nginx/${this.params.appId}/location`, {}).then((list)=>{this.locationList = list})
-    this.api.get(`/api/nginx/${this.params.appId}`, {}).then((app)=>{this.app = app})
+    this.api.get("machine.nginx.location",this.params, {}).then((list)=>{this.locationList = list})
+    this.api.get(`machine.nginx`, this.params).then((app)=>{this.app = app})
   }
   ngOnDestroy() {
-    this.subscriptQueryParams.unsubscribe()
     this.subscriptParams.unsubscribe()
   }
   ngAfterViewInit(){}
   saveApp(){
-    this.api.update(`/api/nginx/${this.params.appId}`, this.app).then((app)=>{this.app = app})
+    this.api.update("machine.nginx", this.params, this.app).then((app)=>{this.app = app})
   }
   addLoction(){
-    this.api.post(`/api/nginx/${this.params.appId}/location`, this.newLoction).then(()=>{
+    this.api.post("machine.nginx.location", this.params, this.newLoction).then(()=>{
       this.newLoction = {}
-      this.api.get(`/api/nginx/${this.params.appId}/location`, {}).then((list)=>{this.locationList = list})
+      this.api.get("machine.nginx.location", this.params).then((list)=>{this.locationList = list})
     })
   }
   refreshLocationList(e){
-    this.api.get(`/api/nginx/${this.params.appId}/location`, {}).then((list)=>{this.locationList = list})
+    this.api.get("machine.nginx.location", this.params).then((list)=>{this.locationList = list})
   }
   preview(){
-    this.api.get(`/api/nginx/${this.params.appId}/preview`, {}).then((data)=>{
+    this.api.get(`machine.nginx.preview`, this.params).then((data)=>{
       jQuery("#nginx-config-preview").find("pre").text(data)
       jQuery("#nginx-config-preview").modal('show')
     })
   }
   previewRunnig(){
-    this.api.get(`/api/nginx/${this.params.appId}/running`, {}).then((data)=>{
+    this.api.get(`machine.nginx.running`, this.params).then((data)=>{
       jQuery("#nginx-config-preview").find("pre").text(data)
       jQuery("#nginx-config-preview").modal('show')
     })
@@ -123,12 +118,12 @@ export class AppConfigEditPage implements OnInit  {
   apply(){
     if(this.app.down){
       alertjs.confirm("当前服务处于下线状态，是否上线并部署", ()=> {
-        this.api.get(`/api/nginx/${this.params.appId}/deploy`, {}).then((msg)=>{
+        this.api.get(`machine.nginx.deploy`, this.params).then((msg)=>{
           alertjs.success(msg)
         })
       });
     }else{
-      this.api.get(`/api/nginx/${this.params.appId}/deploy`, {}).then((msg)=>{
+      this.api.get("machine.nginx.deploy", this.params).then((msg)=>{
         alertjs.success(msg)
       })
     }

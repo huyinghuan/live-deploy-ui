@@ -12,9 +12,8 @@ import {ServerConfigEditComponent} from './components/server-edit'
 import {LeftNavComponent} from './components/left-nav';
 import { IndexPage } from './page/index';
 import { LoginPage } from './page/login';
-import {AppListPage} from './page/app-list';
-import {AppConfigAddPage} from './page/app-config-add';
-import {AppConfigEditPage} from './page/app-config-edit';
+import {NginxListPage} from './page/nginx-list';
+import {NginxConfigEditPage} from './page/nginx-config-edit';
 //====== 二层页面
 
 import { API } from './services/API';
@@ -46,10 +45,10 @@ var router = RouterModule.forRoot([
         path: "machine/:machine", component: MachinePanelPage
       },
       {
-        path:"app-config", component: AppListPage
+        path:"machine/:machine/nginx", component: NginxListPage
       },
       {
-        path:"app-config/:appId", component: AppConfigEditPage
+        path:"machine/:machine/nginx/:nginx", component: NginxConfigEditPage
       }
     ]
   },
@@ -67,9 +66,8 @@ var router = RouterModule.forRoot([
     IndexPage,
     MachineListPage,
     MachinePanelPage,
-    AppListPage,
-    AppConfigAddPage,
-    AppConfigEditPage,
+    NginxListPage,
+    NginxConfigEditPage,
     ServerConfigComponent,
     ServerConfigEditComponent,
     LocationConfigComponent,

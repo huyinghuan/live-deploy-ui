@@ -1,7 +1,9 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { API } from '../services/API';
 import { ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {ISubscription} from 'rxjs/Subscription'
 import * as alertjs from 'alertify.js';
+import { root } from 'postcss';
 declare var jQuery:any
 let template:string = 
 `
@@ -52,25 +54,30 @@ let template:string =
 `
 
 @Component({
-  selector: 'app-list',
+  selector: 'nginx-list',
   template: template
 })
-export class AppListPage implements OnInit  {
+export class NginxListPage implements OnInit  {
   serverList:any = []
+  private subscriptParams:ISubscription
+  private params:any = {}
   app:any ={
     domain: "",
     port: 80,
     name:""
   }
   loadList(){
-    this.api.get("nginx", {}).then((list)=>{this.serverList = list})
+    this.api.get("machine.nginx", this.params).then((list)=>{this.serverList = list})
   }
   constructor(private api:API,private route:ActivatedRoute, private navRouter: Router, private ele:ElementRef){}
   ngOnInit() {
+    this.subscriptParams = this.route.params.subscribe((params)=>{
+      this.params = params
+    })
    this.loadList()
   }
   ngAfterContentChecked(){}
-  ngOnDestroy() {}
+  ngOnDestroy() {this.subscriptParams.unsubscribe()}
   del(id){
     alertjs.confirm("删除应用将导致服务不可能用，是否确认删除？", ()=>{
       this.api.remove("nginx", {nginx:id}).then((msg)=>{
@@ -83,9 +90,10 @@ export class AppListPage implements OnInit  {
     if(this.app.port == 0){
       return 
     }
-    this.api.post("nginx", this.app).then((data)=>{
+    this.api.post("machine.nginx", this.params, this.app).then((data)=>{
      // this.navRouter.navigate(["api", "category", "start", this.params.start, 'end',this.params.end])
-      this.navRouter.navigate(["index","app-config", data["id"]])
+      //this.navRouter.navigate(["index","app-config", data["id"]])
+      this.navRouter.navigate([ data["id"]], {relativeTo: this.route})
     })
   }
   down(id){

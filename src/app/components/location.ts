@@ -1,14 +1,14 @@
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { API } from '../services/API';
 import { ActivatedRoute, ParamMap, Router} from '@angular/router';
-
+import {ISubscription} from 'rxjs/Subscription'
 let template:string = 
 `
 <div style="margin-left:30px;margin-right:30px;">
   <table class="ui celled striped table">
     <thead>
       <tr>
-        <th colspan="5" (mouseenter)="locationEditBtn=true" (mouseleave)="locationEditBtn=false" *ngIf="!locationEditing">
+        <th colspan="5" (mouseenter)="showLocationEditBtn(true)" (mouseleave)="showLocationEditBtn(false)" *ngIf="!locationEditing">
           <a class="ui tag label" title="路径">{{location.path}}</a>
           <a class="ui teal tag label" title="超时">timeout: {{location.timeout}}s</a>
           <div class="ui right floated buttons" [style.display]="locationEditBtn ? 'inline-flex' : 'none'">            
@@ -49,37 +49,57 @@ export class LocationConfigComponent implements OnInit  {
   serverAdding = false
   serverList:any=[]
   server:any = {}
-  name = "11"
+  enter = false
   constructor(private api:API,private route:ActivatedRoute, private navRouter: Router){}
   loadList(){
-    this.api.get("nginx.location.server",{location:this.location.id}).then((data)=>{
+    this.api.get("machine.nginx.location.server", Object.assign({location:this.location.id}, this.params)).then((data)=>{
       this.serverList = data
     })
   }
+  showLocationEditBtn(enter){
+    this.enter = enter
+    if(enter){
+      setTimeout(()=>{
+        if(this.enter){
+          this.locationEditBtn=true
+        }
+      }, 500)
+    }else{
+      this.locationEditBtn=false
+    }
+  }
+  private subscriptParams:ISubscription
+  private params:any = {}
   ngOnInit() {
+    this.subscriptParams = this.route.params.subscribe((params)=>{
+      this.params = params
+    })
     this.loadList()
   }
+  ngOnDestroy() {
+    this.subscriptParams.unsubscribe()
+  }
   delLocation(id){
-    this.api.remove("nginx.location",{location:this.location.id}).then(()=>{
+    this.api.remove("machine.nginx.location",Object.assign({location:this.location.id}, this.params)).then(()=>{
      //通知父级刷新列表
      this.onLoctionDelete.emit({id:1})
     })
   }
   SaveLoction(location){
-    this.api.put("nginx.location", {location:this.location.id}, location).then((data)=>{
+    this.api.put("machine.nginx.location", Object.assign({location:this.location.id}, this.params), location).then((data)=>{
       this.location = data
       this.locationEditing = false
     })
   }
   SaveServer(){
-    let url  = `nginx.location.server`
+    let url  = `machine.nginx.location.server`
     let method = "POST"
     let urlParams = {location:this.location.id}
     if(this.server.id){
       urlParams["server"] = this.server.id
       method ="PUT"
     }
-    this.api.all(method, url, urlParams, this.server).then((data)=>{
+    this.api.all(method, url, Object.assign(urlParams, this.params), this.server).then((data)=>{
       this.serverAdding = false
       this.loadList()
     })
@@ -93,14 +113,12 @@ export class LocationConfigComponent implements OnInit  {
     this.serverAdding=true
   }
   delServer(id){
-    let urlParams = {location:this.location.id, server:id}
-    this.api.remove(`nginx.location.server`, urlParams).then(()=>{
+    this.api.remove(`machine.nginx.location.server`, Object.assign( {location:this.location.id, server:id}, this.params)).then(()=>{
       this.loadList()
     })
   }
   updateServerStatus(data:any){
-    let urlParams = {location:this.location.id, server:data["id"]}
-    this.api.update("nginx.location.server", urlParams,data).then(()=>{
+    this.api.update("machine.nginx.location.server",Object.assign( {location:this.location.id, server:data["id"]}, this.params), data).then(()=>{
       this.loadList()
     })
   }
