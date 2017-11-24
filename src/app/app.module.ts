@@ -23,6 +23,7 @@ import  * as alertjs from 'alertify.js'
 import { TopNavComponent } from './components/top-nav';
 import { MachineListPage } from './page/machine';
 import { MachinePanelPage } from './page/machine-panel';
+import { TopNavItemComponent } from './components/top-nav-item';
 alertjs.logPosition("bottom right").maxLogItems(5).delay(10000).okBtn("确认").cancelBtn("取消").setLogTemplate(function(input){
   let q = [];
   (input as string).split('\n').forEach((item)=>{
@@ -71,7 +72,8 @@ var router = RouterModule.forRoot([
     ServerConfigComponent,
     ServerConfigEditComponent,
     LocationConfigComponent,
-    LocationConfigEditComponent
+    LocationConfigEditComponent,
+    TopNavItemComponent
   ],
   imports: [
     BrowserModule , HttpModule, FormsModule, router

@@ -35,7 +35,7 @@ export class MachinePanelPage implements OnInit  {
   machine = {}
   private subscriptParams:ISubscription
   private params:any
-  constructor(private api:API, private route:ActivatedRoute,){}
+  constructor(private api:API, private route:ActivatedRoute){}
   ngOnInit() {
     this.subscriptParams = this.route.params.subscribe((params)=>{
       this.params = params

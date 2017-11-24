@@ -5,9 +5,7 @@ let template:string =
 <div id="container" class="pushable content">
   <div class="toc" left-nav></div>
   <div class="article">
-    <div class="ui menu" top-nav>
-      
-    </div>
+    <div class="ui menu" top-nav></div>
     <div class="pusher">
     <router-outlet></router-outlet>
     </div>
@@ -25,6 +23,5 @@ export class IndexPage implements OnInit  {
   ngOnInit() {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    
   }
 }
