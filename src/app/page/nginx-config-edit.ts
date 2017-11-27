@@ -123,8 +123,8 @@ export class NginxConfigEditPage implements OnInit  {
         })
       });
     }else{
-      this.api.get("machine.nginx.deploy", this.params).then((msg)=>{
-        alertjs.success(msg)
+      this.api.get("machine.nginx.deploy", this.params).then((data:any)=>{
+        alertjs.success(`任务:${data.type}:${data.action}已下发，请稍后...`)
       })
     }
   }
