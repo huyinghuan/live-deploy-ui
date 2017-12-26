@@ -32,7 +32,7 @@ let template:string =
   template: template
 })
 export class MachinePanelPage implements OnInit  {
-  machine = {}
+  machine:any = {}
   private subscriptParams:ISubscription
   private params:any
   constructor(private api:API, private route:ActivatedRoute){}
