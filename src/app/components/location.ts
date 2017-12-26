@@ -26,7 +26,7 @@ let template:string =
       </tr>
     </thead>
     <thead>
-      <tr><th>Server IP</th><th class="collapsing">超时</th><th>备用</th><th>状态</th><th>操作</th></tr>
+      <tr><th>Server IP</th><th class="collapsing">超时</th><th>主从</th><th>状态</th><th>操作</th></tr>
     </thead>
     <tbody>
       <tr server-config *ngFor="let server of serverList" [server]="server" (onEditServer)="doEditServer($event)" (onDeleteServer)="delServer($event)" (onUpdateServerStatus)="updateServerStatus($event)"></tr>
