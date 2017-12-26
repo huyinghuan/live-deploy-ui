@@ -80,8 +80,8 @@ export class NginxListPage implements OnInit  {
   ngOnDestroy() {this.subscriptParams.unsubscribe()}
   del(id){
     alertjs.confirm("删除应用将导致服务不可能用，是否确认删除？", ()=>{
-      this.api.remove("nginx", {nginx:id}).then((msg)=>{
-        alertjs.success(msg)
+      this.api.remove("machine.nginx", Object.assign({}, this.params, {nginx:id})).then((data:any)=>{
+        alertjs.success(`任务 ${data.type}:${data.action} 已下发`)
         this.loadList()
       })
     })
@@ -98,13 +98,15 @@ export class NginxListPage implements OnInit  {
   }
   down(id){
     alertjs.confirm("下线将导致服务不可能用，是否确认下线？", ()=>{
-      this.api.put(`nginx.status`, {nginx:id},{down: true}).then(()=>{
+      this.api.put(`machine.nginx.status`, Object.assign({}, this.params, {nginx:id}),{down: true}).then((data:any)=>{
+        alertjs.success(`任务 ${data.type}:${data.action} 已下发`)
         this.loadList()
       })
     })
   }
   up(id){
-    this.api.put("nginx.status",{nginx:id}, {down: false}).then(()=>{
+    this.api.put("machine.nginx.status",Object.assign({}, this.params, {nginx:id}), {down: false}).then((data:any)=>{
+      alertjs.success(`任务 ${data.type}:${data.action} 已下发`)
       this.loadList()
     })
   }
