@@ -20,7 +20,7 @@ let template:string = `
 export class TopNavComponent implements OnInit{
   username = "未登录"
   itemList:any = []
-  private menuNameMap = {"machine":"服务器列表", "nginx":"nginx列表"}
+  private menuNameMap = {"machine":"服务器列表", "nginx":"nginx列表", "log":"日志列表"}
   constructor(private api:API, private route:Router){
     this.route.events.subscribe((e)=>{
       if(e.constructor.name != "NavigationEnd"){

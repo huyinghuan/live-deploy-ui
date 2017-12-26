@@ -24,6 +24,8 @@ import { TopNavComponent } from './components/top-nav';
 import { MachineListPage } from './page/machine';
 import { MachinePanelPage } from './page/machine-panel';
 import { TopNavItemComponent } from './components/top-nav-item';
+import { LogListPage } from './page/log-list';
+
 alertjs.logPosition("bottom right").maxLogItems(5).delay(10000).okBtn("确认").cancelBtn("取消").setLogTemplate(function(input){
   let q = [];
   (input as string).split('\n').forEach((item)=>{
@@ -50,6 +52,9 @@ var router = RouterModule.forRoot([
       },
       {
         path:"machine/:machine/nginx/:nginx", component: NginxConfigEditPage
+      },
+      {
+        path:"log", component: LogListPage
       }
     ]
   },
@@ -69,6 +74,7 @@ var router = RouterModule.forRoot([
     MachinePanelPage,
     NginxListPage,
     NginxConfigEditPage,
+    LogListPage,
     ServerConfigComponent,
     ServerConfigEditComponent,
     LocationConfigComponent,

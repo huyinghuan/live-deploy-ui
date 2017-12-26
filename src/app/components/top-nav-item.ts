@@ -22,7 +22,6 @@ export class TopNavItemComponent implements OnInit{
   }
   ngOnInit(){
     if(this.navItem.value){
-      console.log(this.navItem)
       let dataURL = [].concat(this.navItem.url)
       dataURL.push(this.navItem.value)
       this.api.get(dataURL.join(".")).then((data:any)=>{
