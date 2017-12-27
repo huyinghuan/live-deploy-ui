@@ -24,7 +24,8 @@ import { TopNavComponent } from './components/top-nav';
 import { MachineListPage } from './page/machine';
 import { MachinePanelPage } from './page/machine-panel';
 import { TopNavItemComponent } from './components/top-nav-item';
-import { LogListPage } from './page/log-list';
+import { TaskListPage } from './page/task-list';
+import { Pagination } from './components/pagination';
 
 alertjs.logPosition("bottom right").maxLogItems(5).delay(10000).okBtn("确认").cancelBtn("取消").setLogTemplate(function(input){
   let q = [];
@@ -54,12 +55,12 @@ var router = RouterModule.forRoot([
         path:"machine/:machine/nginx/:nginx", component: NginxConfigEditPage
       },
       {
-        path:"log", component: LogListPage
+        path:"task", component: TaskListPage
       }
     ]
   },
-  {path: '404', component: Page404},
-  {path: '**', redirectTo: '/404'}
+  // {path: '404', component: Page404},
+  // {path: '**', redirectTo: '/404'}
 ])
 
 @NgModule({
@@ -74,11 +75,12 @@ var router = RouterModule.forRoot([
     MachinePanelPage,
     NginxListPage,
     NginxConfigEditPage,
-    LogListPage,
+    TaskListPage,
     ServerConfigComponent,
     ServerConfigEditComponent,
     LocationConfigComponent,
     LocationConfigEditComponent,
+    Pagination,
     TopNavItemComponent
   ],
   imports: [

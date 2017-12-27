@@ -39,10 +39,20 @@
     flex: 1;
     padding-top: 10px;
     padding-left: 30px;
-    overflow-y: auto;
+    overflow-y: hidden;
     .main{
       height: 100%;
       width: 100%;
+      display: flex;
+      flex-direction:column;
+      .data-form{
+        width: 100%
+      }
+      .data-table{
+        flex:1;
+        overflow-y: auto;
+        width: 100%;
+      }
     }
   }
 }
