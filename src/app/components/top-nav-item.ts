@@ -24,6 +24,10 @@ export class TopNavItemComponent implements OnInit{
     if(this.navItem.value){
       let dataURL = [].concat(this.navItem.url)
       dataURL.push(this.navItem.value)
+      if(this.navItem.name!="loading"){
+        this.navItem.name = this.navItem.value
+        return
+      }
       this.api.get(dataURL.join(".")).then((data:any)=>{
         this.navItem.name= data.name
       })

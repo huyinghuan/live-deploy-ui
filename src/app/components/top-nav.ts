@@ -20,14 +20,18 @@ let template:string = `
 export class TopNavComponent implements OnInit{
   username = "未登录"
   itemList:any = []
-  private menuNameMap = {"machine":"服务器列表", "nginx":"nginx列表", "log":"日志列表"}
+  private menuNameMap = {"machine":"服务器列表", "nginx":"nginx列表", "task":"任务列表"}
+  private ignoreMap = {
+    "task":true
+  }
   constructor(private api:API, private route:Router){
     this.route.events.subscribe((e)=>{
       if(e.constructor.name != "NavigationEnd"){
         return
       }
+      let url = (e as NavigationEnd).url.split("?").shift()
       let tempList = []
-      let arr = (e as NavigationEnd).url.split('/')
+      let arr = url.split('/')
       arr = arr.slice(2);
       var currentUrl = []
       for(let i = 0; i < arr.length; i = i+2){
@@ -38,9 +42,14 @@ export class TopNavComponent implements OnInit{
         }
 
         if(arr[i+1]){
-          currentUrl.push(arr[i+1])
-          item.value = arr[i+1]
-          item.name = 'loading'
+          if(this.ignoreMap[arr[i]]){
+            item.value = arr[i+1]
+            item.name = 'no-get-from-remote'
+          }else{
+            currentUrl.push(arr[i+1])
+            item.value = arr[i+1]
+            item.name = 'loading'
+          }
         }
         tempList.push(item)
       }

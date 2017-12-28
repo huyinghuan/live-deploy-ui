@@ -26,6 +26,7 @@ import { MachinePanelPage } from './page/machine-panel';
 import { TopNavItemComponent } from './components/top-nav-item';
 import { TaskListPage } from './page/task-list';
 import { Pagination } from './components/pagination';
+import { TaskDetails } from './page/task-detail';
 
 alertjs.logPosition("bottom right").maxLogItems(5).delay(10000).okBtn("确认").cancelBtn("取消").setLogTemplate(function(input){
   let q = [];
@@ -56,6 +57,9 @@ var router = RouterModule.forRoot([
       },
       {
         path:"task", component: TaskListPage
+      },
+      {
+        path:"task/:task", component: TaskDetails
       }
     ]
   },
@@ -81,7 +85,8 @@ var router = RouterModule.forRoot([
     LocationConfigComponent,
     LocationConfigEditComponent,
     Pagination,
-    TopNavItemComponent
+    TopNavItemComponent,
+    TaskDetails
   ],
   imports: [
     BrowserModule , HttpModule, FormsModule, router
