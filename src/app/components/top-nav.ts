@@ -1,6 +1,7 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, ElementRef } from '@angular/core';
 import { API } from '../services/API';
 import { Router, NavigationEnd } from '@angular/router';
+declare var jQuery:any
 let template:string = `
   <div class="ui large breadcrumb" style="margin-top:10px; margin-left:20px;">
     <a class="section" [routerLink]="['/index/machine']" >首页</a>
@@ -9,8 +10,17 @@ let template:string = `
   <div class="right menu">
     <a class="item">{{username}}</a>
     <a class="item"(click)="logout()">注销</a>
-    <a class="item">Help</a>
+    <a class="item" id="message_notity"><i class="alarm icon" [ngClass]="{'red': hasNewMessage}"></i>消息</a>
+    <div class="ui fluid popup bottom right transition hidden">
+      <ul>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+      </ul>
+    </div>
   </div>
+
+
 `
 
 @Component({
@@ -20,11 +30,12 @@ let template:string = `
 export class TopNavComponent implements OnInit{
   username = "未登录"
   itemList:any = []
+  hasNewMessage:boolean = false
   private menuNameMap = {"machine":"服务器列表", "nginx":"nginx列表", "task":"任务列表"}
   private ignoreMap = {
     "task":true
   }
-  constructor(private api:API, private route:Router){
+  constructor(private api:API, private route:Router, private ele:ElementRef){
     this.route.events.subscribe((e)=>{
       if(e.constructor.name != "NavigationEnd"){
         return
@@ -60,10 +71,22 @@ export class TopNavComponent implements OnInit{
     this.api.get("session").then((data)=>{
       this.username = (data as any).name
     })
+    this.api.get("task.log.latest", (data)=>{
+      console.log(data)
+    })
   }
-  ngOnDestroy() {
-    
+  ngAfterViewInit(){
+    jQuery(this.ele.nativeElement).find('#message_notity').popup({
+      inline     : true,
+      hoverable  : true,
+      position   : 'bottom left',
+      delay: {
+        show: 300,
+        hide: 800
+      }
+    })  
   }
+  
   logout(){
     this.api.remove("session")
   }

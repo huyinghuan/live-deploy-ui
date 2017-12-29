@@ -22,7 +22,6 @@ let template:string =
     <div class="ui grey inverted segment">
     <pre>{{task.content}}</pre>
     </div>
-    
   </div>
 </div>
 `
