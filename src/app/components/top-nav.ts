@@ -10,17 +10,26 @@ let template:string = `
   <div class="right menu">
     <a class="item">{{username}}</a>
     <a class="item"(click)="logout()">注销</a>
-    <a class="item" id="message_notity"><i class="alarm icon" [ngClass]="{'red': hasNewMessage}"></i>消息</a>
-    <div class="ui fluid popup bottom right transition hidden">
-      <ul>
-        <li>1</li>
-        <li>1</li>
-        <li>1</li>
-      </ul>
+    <a class="item" id="message_notity">
+      <i class="announcement icon"></i>
+      <div *ngIf="page.total" class=" ui red label">{{page.total}}</div>
+    </a>
+    <div class="ui fluid popup bottom right transition hidden" >
+      <span *ngIf="messageList.length == 0">暂无消息</span>
+      <div  *ngIf="messageList.length" class="ui aligned divided list" style="width:300px!important">
+        <div  *ngFor="let message of messageList" class="item">
+          <i *ngIf="message.status" class="green check circle outline icon"></i>
+          <i *ngIf="!message.status" class="red remove circle outline icon"></i>
+          <div class="content">
+              <span>{{message.name}}</span><span>{{message.type}}</span><span>{{message.action}}</span>
+          </div>
+          <span style="font-size: 8px;">{{message.finish_time * 1000 | date:"yyyy-MM-dd HH:mm:ss"}}</span>
+          <a class="right floated content" (click)="hasRead(message.id)">已读</a>
+          <a class="right floated content" [routerLink]="['task', message.task_id]">详细</a>
+        </div>
+      </div>
     </div>
   </div>
-
-
 `
 
 @Component({
@@ -30,10 +39,13 @@ let template:string = `
 export class TopNavComponent implements OnInit{
   username = "未登录"
   itemList:any = []
-  hasNewMessage:boolean = false
+  messageList:any = []
   private menuNameMap = {"machine":"服务器列表", "nginx":"nginx列表", "task":"任务列表"}
   private ignoreMap = {
     "task":true
+  }
+  private page:any ={
+    total:0
   }
   constructor(private api:API, private route:Router, private ele:ElementRef){
     this.route.events.subscribe((e)=>{
@@ -67,13 +79,28 @@ export class TopNavComponent implements OnInit{
       this.itemList = tempList
     })
   }
+  loadMessage(){
+    this.api.get("task.log.latest").then((data)=>{
+      this.messageList = data
+    })
+  }
   ngOnInit(){
+    this.getNewMessageCount()
     this.api.get("session").then((data)=>{
       this.username = (data as any).name
     })
-    this.api.get("task.log.latest", (data)=>{
-      console.log(data)
+  }
+  hasRead(id){
+    this.api.put("task.log.status.read", {log: id}).then(()=>{
+      this.loadMessage()
+      this.getNewMessageCount()
     })
+  }
+  getNewMessageCount(){
+    this.api.get("task.log.unread.count").then((data)=>{
+      this.page = data
+    })
+    
   }
   ngAfterViewInit(){
     jQuery(this.ele.nativeElement).find('#message_notity').popup({
@@ -83,6 +110,9 @@ export class TopNavComponent implements OnInit{
       delay: {
         show: 300,
         hide: 800
+      },
+      onVisible: ()=>{
+        this.loadMessage()
       }
     })  
   }
