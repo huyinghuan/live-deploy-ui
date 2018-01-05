@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ElementRef } from '@angular/core';
 import { API } from '../services/API';
 import { Router, NavigationEnd } from '@angular/router';
 declare var jQuery:any
+import * as alertjs from 'alertify.js';
 let template:string = `
   <div class="ui large breadcrumb" style="margin-top:10px; margin-left:20px;">
     <a class="section" [routerLink]="['/index/machine']" >首页</a>
@@ -40,6 +41,7 @@ export class TopNavComponent implements OnInit{
   username = "未登录"
   itemList:any = []
   messageList:any = []
+  timer:any = null
   private menuNameMap = {"machine":"服务器列表", "nginx":"nginx列表", "task":"任务列表"}
   private ignoreMap = {
     "task":true
@@ -78,6 +80,9 @@ export class TopNavComponent implements OnInit{
       }
       this.itemList = tempList
     })
+    this.timer = setInterval(()=>{
+      this.getNewMessageCount()
+    }, 10 * 1000)
   }
   loadMessage(){
     this.api.get("task.log.latest").then((data)=>{
@@ -97,10 +102,9 @@ export class TopNavComponent implements OnInit{
     })
   }
   getNewMessageCount(){
-    this.api.get("task.log.unread.count").then((data)=>{
+    this.api.get("task.log.unread.count").then((data:any)=>{
       this.page = data
     })
-    
   }
   ngAfterViewInit(){
     jQuery(this.ele.nativeElement).find('#message_notity').popup({
@@ -116,7 +120,12 @@ export class TopNavComponent implements OnInit{
       }
     })  
   }
-  
+  ngOnDestroy(){
+    if(this.timer){
+      clearInterval(this.timer)
+    }
+  }
+
   logout(){
     this.api.remove("session")
   }
