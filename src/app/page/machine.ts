@@ -21,13 +21,21 @@ let template:string =
   <table class="ui celled padded table">
   <thead>
     <tr>
+      <th class="collapsing" data-tooltip="最后一次获取任务到当前时间是否大于5分钟"  data-inverted  data-position="top left">状态?</th>
       <th>服务器</th>
       <th>操作</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let machine of machineList">
-      <td>{{machine.name}}</td>
+      <td>
+        <a class="ui red empty circular label" *ngIf="!machine.status"></a>
+        <a class="ui green empty circular label" *ngIf="machine.status"></a>
+      </td>
+      <td>  
+        {{machine.name}}
+      </td>
+
       <td class="collapsing">
       <div class="ui buttons">
         <a class="ui green icon button" title="编辑" [routerLink]="[machine.md5id]"><i class="edit icon"></i></a>
