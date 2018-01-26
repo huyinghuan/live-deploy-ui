@@ -8,10 +8,10 @@ let template:string =
   <table class="ui celled striped table">
     <thead>
       <tr>
-        <th colspan="5" (mouseenter)="showLocationEditBtn(true)" (mouseleave)="showLocationEditBtn(false)" *ngIf="!locationEditing">
+        <th colspan="5">
           <a class="ui tag label" title="路径">{{location.path}}</a>
           <a class="ui teal tag label" title="超时">timeout: {{location.timeout}}s</a>
-          <div class="ui right floated buttons" [style.display]="locationEditBtn ? 'inline-flex' : 'none'">            
+          <div class="ui right floated buttons">            
             <button class="ui icon red button" (click)="delLocation(location.id)" title="删除"><i class="trash icon"></i></button>
             <button class="ui icon blue button" (click)="locationEditing=true" title=“编辑”><i class="edit icon"></i></button>
             <button class="mini ui green button"  (click)="doAddServer()" title="添加服务器"><i class="desktop icon"></i></button>

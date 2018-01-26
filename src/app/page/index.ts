@@ -10,8 +10,6 @@ let template:string =
     <router-outlet></router-outlet>
     </div>
   </div>
-
-
 </div>
 `
 
@@ -20,8 +18,5 @@ let template:string =
   template: template
 })
 export class IndexPage implements OnInit  {
-  ngOnInit() {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-  }
+  ngOnInit() {}
 }
