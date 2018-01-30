@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
-import { API } from '../services/API';
+import { API } from '../../services/API';
 import { ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ISubscription} from 'rxjs/Subscription'
 let template:string = 

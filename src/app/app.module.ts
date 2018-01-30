@@ -5,15 +5,15 @@ import {HttpModule} from '@angular/http'
 import { FormsModule }   from '@angular/forms'; 
 
 import { AppComponent } from './components/app';
-import {LocationConfigComponent} from './components/location'
-import {ServerConfigComponent} from './components/server'
-import {LocationConfigEditComponent} from './components/location-edit'
-import {ServerConfigEditComponent} from './components/server-edit'
+import {LocationConfigComponent} from './components/nginx/location'
+import {ServerConfigComponent} from './components/nginx/server'
+import {LocationConfigEditComponent} from './components/nginx/location-edit'
+import {ServerConfigEditComponent} from './components/nginx/server-edit'
 import {LeftNavComponent} from './components/left-nav';
 import { IndexPage } from './page/index';
 import { LoginPage } from './page/login';
-import {NginxListPage} from './page/nginx-list';
-import {NginxConfigEditPage} from './page/nginx-config-edit';
+import {NginxListPage} from './page/nginx/list';
+import {NginxConfigEditPage} from './page/nginx/config-edit';
 //====== 二层页面
 
 import { API } from './services/API';
@@ -35,7 +35,6 @@ alertjs.logPosition("bottom right").maxLogItems(5).delay(10000).okBtn("确认").
   })
   return q.join('')
 });
-
 
 var router = RouterModule.forRoot([
   {path: "", redirectTo:"/index/machine", pathMatch:"full"},

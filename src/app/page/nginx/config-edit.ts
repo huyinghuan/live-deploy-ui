@@ -1,5 +1,5 @@
 import { Component, OnInit,ElementRef } from '@angular/core';
-import { API } from '../services/API';
+import { API } from '../../services/API';
 import { Observable} from 'rxjs/Observable';
 import {ISubscription} from 'rxjs/Subscription'
 import { ActivatedRoute, ParamMap, Router} from '@angular/router';
