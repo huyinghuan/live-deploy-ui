@@ -10,6 +10,9 @@ let template:string =
   <div class="field">
     <input type="number" placeholder="超时，默认0秒为nginx默认值" [(ngModel)]="server.timeout">
   </div>
+  <div class="field">
+    <input type="text" placeholder="备注" [(ngModel)]="server.label">
+  </div>
   <div class="field"><label>备用？</label></div>
   <div class="field">
     <div class="ui toggle checkbox">

@@ -14,6 +14,8 @@ import { IndexPage } from './page/index';
 import { LoginPage } from './page/login';
 import {NginxListPage} from './page/nginx/list';
 import {NginxConfigEditPage} from './page/nginx/config-edit';
+import {LetsEncryptPage} from './page/letsencrypt'
+import {GitPage} from './page/git';
 //====== 二层页面
 
 import { API } from './services/API';
@@ -47,6 +49,12 @@ var router = RouterModule.forRoot([
       },
       {
         path: "machine/:machine", component: MachinePanelPage
+      },
+      {
+        path:"machine/:machine/letsencrypt", component: TaskDetails
+      },
+      {
+        path:"machine/:machine/git", component: GitPage
       },
       {
         path:"machine/:machine/nginx", component: NginxListPage

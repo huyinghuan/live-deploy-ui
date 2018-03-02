@@ -29,12 +29,10 @@ let template:string =
   <tbody>
     <tr *ngFor="let machine of machineList">
       <td>
-        <a class="ui red empty circular label" *ngIf="!machine.status"></a>
-        <a class="ui green empty circular label" *ngIf="machine.status"></a>
+        <i class="red heartbeat icon"  *ngIf="!machine.status"></i>
+        <i class="green heartbeat icon"  *ngIf="machine.status"></i>
       </td>
-      <td>  
-        {{machine.name}}
-      </td>
+      <td><a [routerLink]="[machine.md5id]">{{machine.name}}</a></td>
 
       <td class="collapsing">
       <div class="ui buttons">

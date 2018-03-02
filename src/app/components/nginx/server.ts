@@ -2,6 +2,7 @@ import { Component, Input, EventEmitter} from '@angular/core';
 let template:string = 
 `
   <td>{{server.server_ip}}</td>
+  <td class="collapsing">{{server.label}}</td>
   <td class="collapsing">{{server.timeout}}</td>
   <td  class="collapsing">
     <div class="ui toggle checkbox">

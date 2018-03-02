@@ -23,7 +23,9 @@ let template:string =
   <div class="ui divider"></div>
   <div class="ui massive labels">
     <a class="ui green label" [routerLink]="['nginx']" ><i class="sitemap icon"></i>Nginx</a>
-    <a class="ui orange label" [routerLink]="['letsencrypt']" ><i class="lock icon"></i>Let's Encrypt</a>
+    <!--<a class="ui orange label" [routerLink]="['letsencrypt']" ><i class="lock icon"></i>Let's Encrypt</a>-->
+    <a class="ui orange label" [routerLink]="['service']" ><i class="cogs icon"></i>Service</a>
+    <a class="ui orange label" [routerLink]="['git']" ><i class="cogs icon"></i>Git项目</a>
   </div>
 </div>
 `
