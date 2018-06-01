@@ -16,6 +16,8 @@ import {NginxListPage} from './page/nginx/list';
 import {NginxConfigEditPage} from './page/nginx/config-edit';
 import {LetsEncryptPage} from './page/letsencrypt'
 import {GitPage} from './page/git';
+import { ABListPage } from './page/ab/list';
+import { ABVersionPage } from './page/ab/version';
 //====== 二层页面
 
 import { API } from './services/API';
@@ -29,6 +31,7 @@ import { TopNavItemComponent } from './components/top-nav-item';
 import { TaskListPage } from './page/task-list';
 import { Pagination } from './components/pagination';
 import { TaskDetails } from './page/task-detail';
+
 
 alertjs.logPosition("bottom right").maxLogItems(5).delay(10000).okBtn("确认").cancelBtn("取消").setLogTemplate(function(input){
   let q = [];
@@ -55,6 +58,12 @@ var router = RouterModule.forRoot([
       },
       {
         path:"machine/:machine/git", component: GitPage
+      },
+      {
+        path:"machine/:machine/ab", component: ABListPage
+      },
+      {
+        path:"machine/:machine/ab/:ab", component: ABVersionPage
       },
       {
         path:"machine/:machine/nginx", component: NginxListPage
@@ -87,6 +96,9 @@ var router = RouterModule.forRoot([
     NginxListPage,
     NginxConfigEditPage,
     TaskListPage,
+    GitPage,
+    ABListPage,
+    ABVersionPage,
     ServerConfigComponent,
     ServerConfigEditComponent,
     LocationConfigComponent,

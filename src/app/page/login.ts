@@ -59,8 +59,8 @@ export class LoginPage {
       alertjs.error("密码不能为空或者包含空格")
       return 
     }
-    this.api.post("session", user).then((data)=>{
-      this.router.navigateByUrl("/index/app-config");
+    this.api.post("session", {}, user).then((data)=>{
+      this.router.navigateByUrl("/index/machine");
     })
   }
   ngOnInit() {

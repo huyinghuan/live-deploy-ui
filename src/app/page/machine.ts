@@ -9,8 +9,9 @@ let template:string =
   <div class="ui form">
     <div class="inline fields">
       <div class="field"><label>服务器</label></div>
-      <div class="three wide field">
-        <input type="text" placeholder="别称(可选，数字字母组合)"  [(ngModel)]="machine.name">
+      <div class="six wide field">
+        <input type="text" placeholder="IP地址"  [(ngModel)]="machine.ip">
+        <input type="text" placeholder="描述"  [(ngModel)]="machine.name">
       </div>
       <div class="field">
         <button class="ui blue button" (click)="add()">添加</button>
@@ -22,6 +23,7 @@ let template:string =
   <thead>
     <tr>
       <th class="collapsing" data-tooltip="最后一次获取任务到当前时间是否大于5分钟"  data-inverted  data-position="top left">状态?</th>
+      <th>IP</th>
       <th>服务器</th>
       <th>操作</th>
     </tr>
@@ -32,6 +34,7 @@ let template:string =
         <i class="red heartbeat icon"  *ngIf="!machine.status"></i>
         <i class="green heartbeat icon"  *ngIf="machine.status"></i>
       </td>
+      <td><a [routerLink]="[machine.md5id]">{{machine.ip}}</a></td>
       <td><a [routerLink]="[machine.md5id]">{{machine.name}}</a></td>
 
       <td class="collapsing">
