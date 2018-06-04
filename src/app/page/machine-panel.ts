@@ -15,9 +15,8 @@ let template:string =
         <input type="text" placeholder="名称" [(ngModel)]="machine.name">
       </div>
       <div class="field">
-        <div class="ui buttons">
           <button class="ui icon blue button" (click)="save()"><i class="save icon"></i>保存</button>
-        </div>
+          <button class="ui icon blue button" (click)="showKey()"><i class="eye icon"></i>Key</button>
       </div>
     </div>
   </div>
@@ -57,6 +56,10 @@ export class MachinePanelPage implements OnInit  {
   
   ngOnDestroy() {
     this.subscriptParams.unsubscribe()
+  }
+
+  showKey(){
+    confirm("CFBKey: " + this.machine.cfb_key)
   }
   
 }

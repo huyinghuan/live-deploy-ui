@@ -50,11 +50,11 @@ let template:string =
   <tbody>
     <tr *ngFor="let server of abList">
       <td class="collapsing">
-        <i class="red heartbeat icon"  *ngIf="!server.status"></i>
-        <i class="green heartbeat icon"  *ngIf="server.status"></i>
+        <i class="gray heartbeat icon"  *ngIf="!server.status"></i>
+        <i class="red heartbeat icon"  *ngIf="server.status"></i>
       </td>
-      <td class="collapsing">{{server.name}}</td>
-      <td>{{server.serverName}}</td>
+      <td class="collapsing"><a [routerLink]="[server.id]">{{server.name}}</a></td>
+      <td><a [routerLink]="[server.id]">{{server.serverName}}</a></td>
       <td class="collapsing">{{server.listen}}</td>
       <td>{{server.parameter}}</td>
       <td>{{server.rootPath}}</td>

@@ -31,8 +31,8 @@ let template:string =
   <tbody>
     <tr *ngFor="let machine of machineList">
       <td>
-        <i class="red heartbeat icon"  *ngIf="!machine.status"></i>
-        <i class="green heartbeat icon"  *ngIf="machine.status"></i>
+        <i class="gray heartbeat icon"  *ngIf="!machine.status"></i>
+        <i class="red heartbeat icon"  *ngIf="machine.status"></i>
       </td>
       <td><a [routerLink]="[machine.md5id]">{{machine.ip}}</a></td>
       <td><a [routerLink]="[machine.md5id]">{{machine.name}}</a></td>

@@ -42,7 +42,7 @@ export class TopNavComponent implements OnInit{
   itemList:any = []
   messageList:any = []
   timer:any = null
-  private menuNameMap = {"machine":"服务器列表", "nginx":"nginx列表", "task":"任务列表"}
+  private menuNameMap = {"machine":"服务器列表", "nginx":"nginx列表", "task":"任务列表", "ab":"ABTest"}
   private ignoreMap = {
     "task":true
   }

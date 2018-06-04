@@ -12,26 +12,30 @@ let template:string =
     <div class="inline fields">
       <div class="field"><label>应用</label></div>
       <div class="two wide field">
-        <input type="text" placeholder="域名（可选）" [(ngModel)]="version.serverName">
+        <input type="text" placeholder="域名（可选）" [(ngModel)]="ab.serverName">
       </div>
       <div class="wide field">
-        <input type="number" placeholder="端口(可选，默认80)"  [(ngModel)]="version.listen">
+        <input type="number" placeholder="端口(可选，默认80)"  [(ngModel)]="ab.listen">
       </div>
       <div class="two wide field">
-        <input type="text" placeholder="别称"  [(ngModel)]="version.name">
+        <input type="text" placeholder="别称"  [(ngModel)]="ab.name">
       </div>
       <div class="field"><label>分流</label></div>
       <div class="two wide field">
-        <select class="ui search dropdown"  [(ngModel)]="version.parameter">
+        <select class="ui search dropdown"  [(ngModel)]="ab.parameter">
           <option value="remote_addr">IP</option>
           <option value="http_user_agent">UserAgent</option>
         </select>
       </div>
       <div class="three wide field">
-        <input type="text" placeholder="根目录"  [(ngModel)]="version.rootPath">
+        <input type="text" placeholder="根目录"  [(ngModel)]="ab.rootPath">
       </div>
       <div class="field">
-        <button class="ui blue button" (click)="save()">保存</button>
+        <button class="ui green icon button" (click)="save()"><i class="save icon"></i>保存</button>
+
+        <button  *ngIf="!ab.status" class="ui blue icon button" (click)="deploy()"><i class="paper plane icon"></i>应用</button>
+        <button  *ngIf="ab.status" class="ui red icon button" (click)="deploy()"><i class="stop icon"></i>禁用</button>
+
       </div>
     </div>
   </div>
@@ -45,7 +49,7 @@ let template:string =
         <input type="number" min=1 max=100 placeholder="比例(1-100)"  [(ngModel)]="version.proportion">
       </div>
       <div class="field">
-        <button class="ui blue button" (click)="add()">添加</button>
+        <button class="ui blue icon button" (click)="add()"><i class="plus icon"></i>添加</button>
       </div>
   </div>
   </div>
@@ -80,16 +84,31 @@ export class ABVersionPage implements OnInit  {
   versionList:any = []
   private subscriptParams:ISubscription
   private params:any = {}
+  ab:any = {}
   version:any ={
     tag:"",
     proportion: 50,
   }
   loadList(){
-    this.api.get("machine.ab.version", this.params).then((list)=>{this.versionList = list})
+    return this.api.get("machine.ab.version", this.params).then((list:any)=>{
+      this.versionList = list
+      let currentProportion = 0
+      list.forEach(element => {
+        currentProportion = currentProportion + element.proportion
+      });
+      let overage = 100 - currentProportion
+      if(overage == 100){
+        overage = 50
+      }
+      this.version ={
+        tag:"",
+        proportion: overage,
+      }
+    })
   }
   loadProject(){
     this.api.get("machine.ab", this.params).then((data)=>{
-      this.version = data
+      this.ab = data
     })
   }
   constructor(private api:API,private route:ActivatedRoute, private navRouter: Router, private ele:ElementRef){}
@@ -109,15 +128,13 @@ export class ABVersionPage implements OnInit  {
   }
   add(){
     this.api.post("machine.ab.version", this.params, this.version).then((data)=>{
-      // this.navRouter.navigate(["api", "category", "start", this.params.start, 'end',this.params.end])
-      //this.navRouter.navigate(["index","app-config", data["id"]])
-      //this.navRouter.navigate([ data["id"]], {relativeTo: this.route})
       this.loadList()
-      let overage = 100 - this.version.proportion
-      this.version ={
-        tag:"",
-        proportion: overage,
-      }
     })
+  }
+  deploy(){
+    this.api.post("machine.ab.deploy", this.params)
+  }
+  save(){
+    this.api.put("machine.ab", this.params, this.ab)
   }
 }
