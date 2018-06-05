@@ -33,9 +33,9 @@ let template:string =
       <div class="field">
         <button class="ui green icon button" (click)="save()"><i class="save icon"></i>保存</button>
 
-        <button  *ngIf="!ab.status" class="ui blue icon button" (click)="deploy()"><i class="paper plane icon"></i>应用</button>
-        <button  *ngIf="ab.status" class="ui red icon button" (click)="deploy()"><i class="stop icon"></i>禁用</button>
-
+        <button  *ngIf="ab.status == 0" class="ui blue icon button" (click)="deploy()"><i class="paper plane icon"></i>部署</button>
+        <button  *ngIf="ab.status == 1" class="ui red icon button" (click)="unDeploy()"><i class="stop icon"></i>禁用</button>
+        <button  *ngIf="ab.status == -1" class="ui red icon button" (click)="deploy()"><i class="stop icon"></i>部署中...</button>
       </div>
     </div>
   </div>
@@ -132,7 +132,10 @@ export class ABVersionPage implements OnInit  {
     })
   }
   deploy(){
-    this.api.post("machine.ab.deploy", this.params)
+    this.api.post("machine.ab.deploy", this.params, {status:1})
+  }
+  unDeploy(){
+    this.api.post("machine.ab.deploy", this.params, {status:0})
   }
   save(){
     this.api.put("machine.ab", this.params, this.ab)

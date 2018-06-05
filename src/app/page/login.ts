@@ -7,7 +7,7 @@ let template:string =
 <div class="ui middle aligned center aligned grid" style="height: 100%">
 <div class="column" style="max-width: 450px;">
   <h2 class="ui teal image header">
-    <!-- <img src="/img/logo.png" class="logo"> -->
+    <!--<img src="/assets/images/logo.png" class="logo">-->
     <div class="content">Nginx Panel</div>
   </h2>
   <form class="ui large form">

@@ -15,7 +15,7 @@ export class Pagination implements OnInit{
   @Input() public pageCount;
   @Input() public pageCurrent;
   public onGoto = new EventEmitter()
-  private pageList:Array<any>;
+  pageList:Array<any>;
   constructor(){}
   getArray(begin, end){
     var list = []

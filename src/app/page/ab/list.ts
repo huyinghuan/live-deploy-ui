@@ -50,8 +50,9 @@ let template:string =
   <tbody>
     <tr *ngFor="let server of abList">
       <td class="collapsing">
-        <i class="gray heartbeat icon"  *ngIf="!server.status"></i>
-        <i class="red heartbeat icon"  *ngIf="server.status"></i>
+        <i class="gray heartbeat icon"  *ngIf="server.status == 0"></i>
+        <i class="red heartbeat icon"  *ngIf="server.status == 1"></i>
+        <i class="yellow heartbeat icon"  *ngIf="server.status == -1"></i>
       </td>
       <td class="collapsing"><a [routerLink]="[server.id]">{{server.name}}</a></td>
       <td><a [routerLink]="[server.id]">{{server.serverName}}</a></td>
@@ -62,8 +63,9 @@ let template:string =
       <div class="ui buttons">
         <a class="ui green icon button" title="编辑" [routerLink]="[server.id]"><i class="edit icon"></i></a>
         <button class="ui red icon button" (click)="del(server.id)" title="删除"><i class="trash icon"></i></button>
-        <button *ngIf="server.status" class="ui yellow icon button" (click)="down(server.id)" title="下线" ><i class="arrow circle down icon"></i></button>
-        <button *ngIf="!server.status" class="ui blue icon button" (click)="up(server.id)" title="上线" ><i class="arrow circle up icon"></i></button>
+        <button *ngIf="server.status == 1" class="ui yellow icon button" (click)="down(server.id)" title="下线" ><i class="arrow circle down icon"></i></button>
+        <button *ngIf="server.status == 0" class="ui blue icon button" (click)="up(server.id)" title="上线" ><i class="arrow circle up icon"></i></button>
+        <button *ngIf="server.status == -1" class="ui yellow icon button" title="处理中" ><i class="arrow circle up icon"></i></button>
       </div>
       </td>
     </tr>
@@ -116,12 +118,12 @@ export class ABListPage implements OnInit  {
     })
   }
   down(id){
-    this.api.put("machine.ab.status", Object.assign({}, this.params, {ab:id}), {status: false}).then(()=>{
+    this.api.put("machine.ab.deploy", Object.assign({}, this.params, {ab:id}), {status: 0}).then(()=>{
       this.loadList()
     })
   }
   up(id){
-    this.api.put("machine.ab.status", Object.assign({}, this.params, {ab:id}),  {status: true}).then(()=>{
+    this.api.put("machine.ab.deploy", Object.assign({}, this.params, {ab:id}),  {status: 1}).then(()=>{
       this.loadList()
     })
   }

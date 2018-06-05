@@ -44,7 +44,7 @@ export class LocationConfigEditComponent {
   @Input() public location:any;
   public onCancelEditLocation = new EventEmitter()
   public onSaveLocation = new EventEmitter()
-  private more:boolean = false
+  more:boolean = false
   constructor(){}
   SaveLoction(){
     this.onSaveLocation.emit(this.location)

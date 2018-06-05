@@ -98,7 +98,7 @@ export class NginxConfigEditPage implements OnInit  {
     basic_setting:""
     
   }
-  private showBaseSetting:boolean = false
+  showBaseSetting:boolean = false
   private params:any = {}
   locationList:any = []
   newLoction:any={}

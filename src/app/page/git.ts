@@ -40,7 +40,8 @@ export class GitPage implements OnInit  {
   serverList:any = []
   private subscriptParams:ISubscription
   private params:any = {}
-
+  https:any = {}
+  save(){}
   constructor(private api:API,private route:ActivatedRoute, private navRouter: Router, private ele:ElementRef){}
   ngOnInit() {
     this.subscriptParams = this.route.params.subscribe((params)=>{

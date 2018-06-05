@@ -46,7 +46,7 @@ export class TopNavComponent implements OnInit{
   private ignoreMap = {
     "task":true
   }
-  private page:any ={
+  page:any ={
     total:0
   }
   constructor(private api:API, private route:Router, private ele:ElementRef){
