@@ -22,7 +22,7 @@ let template:string =
   </div>
   <div class="ui divider"></div>
   <div class="ui massive labels">
-    <!--<a class="ui green label" [routerLink]="['nginx']" ><i class="sitemap icon"></i>Nginx</a>-->
+    <a class="ui green label" [routerLink]="['nginx']" ><i class="sitemap icon"></i>Nginx</a> <!---->
     <a class="ui green label" [routerLink]="['ab']" ><i class="random icon"></i>A/B Test</a>
     <!--<a class="ui orange label" [routerLink]="['letsencrypt']" ><i class="lock icon"></i>Let's Encrypt</a>-->
     <!-- <a class="ui orange label" [routerLink]="['service']" ><i class="cogs icon"></i>Service</a>-->

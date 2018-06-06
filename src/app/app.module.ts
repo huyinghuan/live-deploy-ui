@@ -16,7 +16,7 @@ import {NginxListPage} from './page/nginx/list';
 import {NginxConfigEditPage} from './page/nginx/config-edit';
 import {GitPage} from './page/git';
 import { ABListPage } from './page/ab/list';
-import { ABVersionPage } from './page/ab/version';
+import { ABProjectPage } from './page/ab/project';
 //====== 二层页面
 
 import { API } from './services/API';
@@ -62,7 +62,7 @@ var router = RouterModule.forRoot([
         path:"machine/:machine/ab", component: ABListPage
       },
       {
-        path:"machine/:machine/ab/:ab", component: ABVersionPage
+        path:"machine/:machine/ab/:ab", component: ABProjectPage
       },
       {
         path:"machine/:machine/nginx", component: NginxListPage
@@ -97,7 +97,7 @@ var router = RouterModule.forRoot([
     TaskListPage,
     GitPage,
     ABListPage,
-    ABVersionPage,
+    ABProjectPage,
     ServerConfigComponent,
     ServerConfigEditComponent,
     LocationConfigComponent,
