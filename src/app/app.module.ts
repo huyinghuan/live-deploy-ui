@@ -30,6 +30,9 @@ import { TopNavItemComponent } from './components/top-nav-item';
 import { TaskListPage } from './page/task-list';
 import { Pagination } from './components/pagination';
 import { TaskDetails } from './page/task-detail';
+import { ABProjectConfigComponent } from './components/ab/project-config';
+import { ABProjectEditComponent } from './components/ab/project-edit';
+import { ABVersionEditComponent } from './components/ab/version-edit';
 
 
 alertjs.logPosition("bottom right").maxLogItems(5).delay(10000).okBtn("确认").cancelBtn("取消").setLogTemplate(function(input){
@@ -104,7 +107,10 @@ var router = RouterModule.forRoot([
     LocationConfigEditComponent,
     Pagination,
     TopNavItemComponent,
-    TaskDetails
+    TaskDetails,
+    ABProjectConfigComponent,
+    ABProjectEditComponent,
+    ABVersionEditComponent
   ],
   imports: [
     BrowserModule , HttpModule, FormsModule, router

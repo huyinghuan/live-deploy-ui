@@ -48,15 +48,14 @@ let template:string =
       <td class="collapsing"><a [routerLink]="[server.id]">{{server.name}}</a></td>
       <td><a [routerLink]="[server.id]">{{server.serverName}}</a></td>
       <td class="collapsing">{{server.listen}}</td>
-      <td>{{server.parameter}}</td>
       <td>{{server.rootPath}}</td>
       <td class="collapsing">
-      <div class="ui buttons">
-        <a class="ui green icon button" title="编辑" [routerLink]="[server.id]"><i class="edit icon"></i></a>
-        <button class="ui red icon button" (click)="del(server.id)" title="删除"><i class="trash icon"></i></button>
-        <button *ngIf="server.status == 1" class="ui yellow icon button" (click)="down(server.id)" title="下线" ><i class="arrow circle down icon"></i></button>
-        <button *ngIf="server.status == 0" class="ui blue icon button" (click)="up(server.id)" title="上线" ><i class="arrow circle up icon"></i></button>
-      </div>
+        <div class="ui buttons">
+          <a class="ui green icon button" title="编辑" [routerLink]="[server.id]"><i class="edit icon"></i></a>
+          <button class="ui red icon button" (click)="del(server.id)" title="删除"><i class="trash icon"></i></button>
+          <button *ngIf="server.status == 1" class="ui yellow icon button" (click)="down(server.id)" title="下线" ><i class="arrow circle down icon"></i></button>
+          <button *ngIf="server.status == 0" class="ui blue icon button" (click)="up(server.id)" title="上线" ><i class="arrow circle up icon"></i></button>
+        </div>
       </td>
     </tr>
   </tbody>

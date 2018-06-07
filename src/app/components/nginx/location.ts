@@ -8,7 +8,7 @@ let template:string =
   <table class="ui celled striped table">
     <thead>
       <tr>
-        <th colspan="5">
+        <th colspan="6">
           <a class="ui tag label" title="路径">{{location.path}}</a>
           <a class="ui teal tag label" title="超时">timeout: {{location.timeout}}s</a>
           <div class="ui right floated buttons">            
@@ -19,7 +19,7 @@ let template:string =
         </th>
       </tr>
       <tr>
-        <th colspan="5" location-edit  *ngIf="locationEditing"  (onCancelEditLocation)="locationEditing=false" (onSaveLocation)="SaveLoction($event)" [location]="location"></th>
+        <th colspan="6" location-edit  *ngIf="locationEditing"  (onCancelEditLocation)="locationEditing=false" (onSaveLocation)="SaveLoction($event)" [location]="location"></th>
       </tr>
       <tr [style.display]="serverAdding ? 'table-row' : 'none'">
         <th colspan="5" server-edit (onCancelAddServer)="serverAdding=false" (onSaveServer)="SaveServer()" [server]="server"></th>
