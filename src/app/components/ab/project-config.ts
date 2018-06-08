@@ -94,8 +94,11 @@ export class ABProjectConfigComponent implements OnInit  {
       method ="PUT"
     }
     this.api.all(method, url, Object.assign(urlParams, this.params), this.version).then((data)=>{
-      this.versionAdding = false
+      if(method == "PUT"){
+        this.versionAdding = false
+      }
       this.loadVersionList()
+      this.clearForm()
     })
   }
   loadVersionList(){

@@ -24,7 +24,7 @@ let template:string =
         <input type="text" placeholder="根目录"  [(ngModel)]="ab.rootPath">
       </div>
       <div class="field">
-        <button class="ui green icon button" (click)="loadDomain()"><i class="save icon"></i>保存</button>
+        <button class="ui green icon button" (click)="saveDomain()"><i class="save icon"></i>保存</button>
         <button class="ui blue icon button" (click)="deploy()"><i class="paper plane icon"></i>部署</button>
         <button  *ngIf="ab.status == 1" class="ui red icon button" (click)="unDeploy()"><i class="stop icon"></i>禁用</button>
       </div>
