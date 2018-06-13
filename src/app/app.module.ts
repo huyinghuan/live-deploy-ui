@@ -118,4 +118,5 @@ var router = RouterModule.forRoot([
   providers: [API],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

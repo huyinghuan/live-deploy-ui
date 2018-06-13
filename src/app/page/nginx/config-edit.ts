@@ -1,7 +1,5 @@
 import { Component, OnInit,ElementRef } from '@angular/core';
 import { API } from '../../services/API';
-import { Observable} from 'rxjs/Observable';
-import {ISubscription} from 'rxjs/Subscription'
 import { ActivatedRoute, ParamMap, Router} from '@angular/router';
 import  * as alertjs from 'alertify.js'
 declare var jQuery:any
@@ -102,7 +100,7 @@ export class NginxConfigEditPage implements OnInit  {
   private params:any = {}
   locationList:any = []
   newLoction:any={}
-  private subscriptParams:ISubscription
+  private subscriptParams
   constructor(private api:API,private route:ActivatedRoute, private navRouter: Router, private ele:ElementRef){}
   ngOnInit() {
     this.subscriptParams = this.route.params.subscribe((params)=>{

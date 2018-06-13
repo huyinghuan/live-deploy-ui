@@ -1,7 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { API } from '../services/API';
 import { ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {ISubscription} from 'rxjs/Subscription'
 import * as alertjs from 'alertify.js';
 declare var jQuery:any
 let template:string = 
@@ -37,7 +36,7 @@ let template:string =
 })
 export class MachinePanelPage implements OnInit  {
   machine:any = {}
-  private subscriptParams:ISubscription
+  private subscriptParams
   private params:any
   constructor(private api:API, private route:ActivatedRoute){}
   ngOnInit() {

@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { API } from '../../services/API';
 import { ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {ISubscription} from 'rxjs/Subscription'
 let template:string = 
 `
 <div style="margin-left:30px;margin-right:30px;">
@@ -68,7 +67,7 @@ export class LocationConfigComponent implements OnInit  {
       this.locationEditBtn=false
     }
   }
-  private subscriptParams:ISubscription
+  private subscriptParams
   private params:any = {}
   ngOnInit() {
     this.subscriptParams = this.route.params.subscribe((params)=>{

@@ -1,7 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { API } from '../services/API';
 import { ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {ISubscription} from 'rxjs/Subscription'
 import * as alertjs from 'alertify.js';
 
 declare var jQuery:any
@@ -74,7 +73,7 @@ let template:string =
 export class TaskListPage implements OnInit  {
   taskList:any = []
   public pageCount = 1
-  private subscriptQueryParams:ISubscription
+  private subscriptQueryParams
   filterParams:any ={
     page: 1,
     task_status: -3

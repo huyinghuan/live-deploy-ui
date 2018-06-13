@@ -1,7 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { API } from '../../services/API';
 import { ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {ISubscription} from 'rxjs/Subscription'
 import * as alertjs from 'alertify.js';
 import { root } from 'postcss';
 declare var jQuery:any
@@ -69,7 +68,7 @@ let template:string =
 })
 export class ABListPage implements OnInit  {
   abList:any = []
-  private subscriptParams:ISubscription
+  private subscriptParams
   private params:any = {}
   ab:any ={
     server_name: "",

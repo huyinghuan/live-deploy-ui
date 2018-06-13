@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptionsArgs, Response  } from '@angular/http';
 import {Router, ActivatedRoute} from "@angular/router";
-import 'rxjs/add/operator/toPromise';
 import  * as alertjs from 'alertify.js'
-
-
-
 
 @Injectable()
 export class API {

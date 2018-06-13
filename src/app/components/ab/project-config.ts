@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { API } from '../../services/API';
 import { ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {ISubscription} from 'rxjs/Subscription'
 let template:string = 
 `
 <div style="margin-left:30px;margin-right:30px;">
@@ -54,7 +53,7 @@ export class ABProjectConfigComponent implements OnInit  {
   @Input() public project:any;
   public onLoadProjectListEvent = new EventEmitter()
   constructor(private api:API,private route:ActivatedRoute, private navRouter: Router){}
-  private subscriptParams:ISubscription
+  private subscriptParams
   private params:any = {}
   projectEditing:boolean = false
   versionAdding:boolean = false

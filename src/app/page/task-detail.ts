@@ -1,7 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { API } from '../services/API';
 import { ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {ISubscription} from 'rxjs/Subscription'
 import * as alertjs from 'alertify.js';
 import { root } from 'postcss';
 import { Params } from '@angular/router/src/shared';
@@ -31,7 +30,7 @@ let template:string =
   template: template
 })
 export class TaskDetails implements OnInit  {
-  private subscriptParams:ISubscription
+  private subscriptParams
   task:any = {}
   loadData(){
     this.api.get("task", this.params).then((data)=>{
